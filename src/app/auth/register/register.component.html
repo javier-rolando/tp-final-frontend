@@ -1,0 +1,45 @@
+<div class="body">
+  <form
+    autocomplete="off"
+    [formGroup]="registerForm"
+    (ngSubmit)="crearUsuario()"
+  >
+    <div class="login">
+      <h1 class="h3 mb-3 fw-normal">Registro</h1>
+      <mat-form-field class="ancho" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" />
+        <mat-error *ngIf="campoNoValido('nombre')">{{
+          getMensajeError("nombre")
+        }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" />
+        <mat-error *ngIf="campoNoValido('email')">{{
+          getMensajeError("email")
+        }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput formControlName="password" />
+        <mat-error *ngIf="campoNoValido('password')">{{
+          getMensajeError("password")
+        }}</mat-error>
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="outline">
+        <mat-label>Confirmar contraseña</mat-label>
+        <input type="password" matInput formControlName="password2" />
+        <mat-error *ngIf="campoNoValido('password2')">{{
+          getMensajeError("password2")
+        }}</mat-error>
+      </mat-form-field>
+      <button class="ancho" mat-raised-button mat-button color="primary">
+        Submitir
+      </button>
+      <p class="texto">
+        ¿Ya tenés una cuenta? <a href="#" class="link">Iniciá sesión</a>
+      </p>
+    </div>
+  </form>
+</div>
