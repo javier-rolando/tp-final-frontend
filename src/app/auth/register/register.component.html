@@ -5,7 +5,7 @@
     (ngSubmit)="crearUsuario()"
   >
     <div class="login">
-      <h1>Registro</h1>
+      <h1>Registrate en Postinger</h1>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre" />
@@ -35,10 +35,11 @@
         }}</mat-error>
       </mat-form-field>
       <button class="ancho" mat-raised-button mat-button color="primary">
-        Submitir
+        Registrarme
       </button>
       <p class="texto">
-        ¿Ya tenés una cuenta? <a href="#" class="link">Iniciá sesión</a>
+        ¿Ya tenés una cuenta?
+        <a routerLink="/login" class="link">Iniciá sesión</a>
       </p>
     </div>
   </form>

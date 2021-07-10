@@ -1,1 +1,26 @@
-<p>login works!</p>
+<div class="body">
+  <form autocomplete="off" [formGroup]="loginForm" (ngSubmit)="login()">
+    <div class="login">
+      <h1>Iniciar sesión en Postinger</h1>
+      <mat-form-field class="ancho" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="email" />
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput formControlName="password" />
+      </mat-form-field>
+      <button class="ancho pad" mat-raised-button mat-button color="primary">
+        Iniciar sesión
+      </button>
+      <p class="texto">
+        ¿No recordás tu contraseña?
+        <a routerLink="/register" class="link">Reseteala</a>
+      </p>
+      <p class="texto">
+        ¿Todavía no tenés una cuenta?
+        <a routerLink="/register" class="link">Registrate</a>
+      </p>
+    </div>
+  </form>
+</div>

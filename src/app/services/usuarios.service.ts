@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { tap } from 'rxjs/operators';
+import { LoginForm } from '../interfaces/login-form.interface';
 
 const base_url: string = environment.base_url;
 
@@ -18,6 +19,10 @@ export class UsuariosService {
 
   crearUsuario(formData: RegisterForm) {
     return this.http.post(`${base_url}/users/create`, formData);
+  }
+
+  login(formData: LoginForm) {
+    return this.http.post(`${base_url}/users/login`, formData);
   }
 
   resendEmail() {

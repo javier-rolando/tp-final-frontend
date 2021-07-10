@@ -3,13 +3,13 @@ import {
   AbstractControl,
   AbstractControlOptions,
   FormBuilder,
-  FormGroup,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -88,6 +88,7 @@ export class RegisterComponent implements OnInit {
       },
       (err) => {
         console.log(err);
+        // Swal.fire('Error', err, 'error')
       }
     );
   }
