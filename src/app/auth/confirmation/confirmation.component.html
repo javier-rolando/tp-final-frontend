@@ -1,0 +1,32 @@
+<div class="body">
+  <mat-card class="example-card">
+    <mat-card-header class="title">
+      <mat-card-title>
+        <h1>Revisá tu correo</h1>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        Hemos enviado un correo electrónico al email que registraste
+        previamente.
+      </p>
+      <p>
+        Por favor revisá tu bandeja de entrada y hacé click en el link para
+        confirmar que tu email es real.
+      </p>
+      <p>
+        Si no recibís ningun correo, hacé click en el botón de abajo para volver
+        a enviar el email de confirmación.
+      </p>
+      <button
+        (click)="enviarEmail()"
+        class="ancho"
+        mat-raised-button
+        mat-button
+        color="primary"
+      >
+        Enviar
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

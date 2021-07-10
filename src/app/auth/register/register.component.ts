@@ -7,6 +7,9 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +19,12 @@ import {
 export class RegisterComponent implements OnInit {
   // public formSubmitido = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private usuariosService: UsuariosService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
@@ -69,7 +77,19 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
+    const { password2, ...formData } = this.registerForm.value;
+
     console.log(this.registerForm.value);
+    this.usuariosService.crearUsuario(formData).subscribe(
+      (resp: any) => {
+        console.log(resp);
+        this.authService.authenticate(resp.token);
+        this.router.navigateByUrl('/confirmation');
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   campoNoValido(campo: string): boolean {
@@ -117,7 +137,7 @@ export class RegisterComponent implements OnInit {
       case 'password2':
         if (
           this.registerForm.get('password2')?.hasError('noEsIgual') &&
-          this.registerForm.get('password2')?.touched
+          this.registerForm.get('password2')?.dirty
         ) {
           return 'Las contraseñas deben ser iguales';
         }

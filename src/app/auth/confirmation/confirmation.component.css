@@ -1,0 +1,23 @@
+.body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #3f51b5;
+}
+
+.example-card {
+  max-width: 400px;
+  padding: 25px;
+  box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  text-align: center;
+  display: block;
+}
+
+.ancho {
+  width: 100%;
+  margin-top: 10px;
+}

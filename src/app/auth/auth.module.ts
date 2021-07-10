@@ -9,9 +9,10 @@ import { MatCardModule } from '@angular/material/card';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent],
+  declarations: [RegisterComponent, LoginComponent, ConfirmationComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

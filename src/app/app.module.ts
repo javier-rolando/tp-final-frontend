@@ -8,6 +8,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { PagesModule } from './pages/pages.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, NotfoundComponent],
@@ -18,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     PagesModule,
     SharedModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
