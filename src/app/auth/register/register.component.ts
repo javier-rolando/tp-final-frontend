@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import Swal from 'sweetalert2';
 
@@ -22,7 +21,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
-    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -83,7 +81,7 @@ export class RegisterComponent implements OnInit {
     this.usuariosService.crearUsuario(formData).subscribe(
       (resp: any) => {
         console.log(resp);
-        this.authService.authenticate(resp.token);
+        localStorage.setItem('token', resp.token);
         this.router.navigateByUrl('/confirmation');
       },
       (err) => {

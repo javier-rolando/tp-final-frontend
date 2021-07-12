@@ -1,1 +1,22 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    class="menu"
+    aria-label="Menu"
+    (click)="onToggleSidenav()"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Postinger</span>
+  <span class="example-spacer"></span>
+  <div class="nav">
+    <ul class="navigation-items">
+      <li class="navigation-item" *ngIf="usuario">
+        <a routerLink="#" class="link">{{ usuario.nombre }}</a>
+      </li>
+      <li class="navigation-item">
+        <a routerLink="#" class="link">Probando</a>
+      </li>
+    </ul>
+  </div>
+</mat-toolbar>

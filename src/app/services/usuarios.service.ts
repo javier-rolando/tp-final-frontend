@@ -2,8 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { RegisterForm } from '../interfaces/register-form.interface';
-import { tap } from 'rxjs/operators';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { Usuario } from '../models/usuario.model';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 const base_url: string = environment.base_url;
 
@@ -11,6 +13,8 @@ const base_url: string = environment.base_url;
   providedIn: 'root',
 })
 export class UsuariosService {
+  public usuario: Usuario;
+
   constructor(private http: HttpClient) {}
 
   get token(): string {
@@ -21,6 +25,31 @@ export class UsuariosService {
     return this.http.post(`${base_url}/users/create`, formData);
   }
 
+  getUsuario(): Observable<boolean> {
+    return this.http.get(`${base_url}/users`).pipe(
+      map((resp: any) => {
+        const { nombre, email, role, confirmado, _id, avatar, createdAt } =
+          resp.usuario;
+
+        // console.log('1', resp);
+
+        this.usuario = new Usuario(
+          nombre,
+          email,
+          role,
+          confirmado,
+          _id,
+          avatar,
+          createdAt
+        );
+
+        console.log('1', this.usuario);
+        return true;
+      }),
+      catchError((error) => of(false))
+    );
+  }
+
   login(formData: LoginForm) {
     return this.http.post(`${base_url}/users/login`, formData);
   }
@@ -29,3 +58,20 @@ export class UsuariosService {
     return this.http.get(`${base_url}/users/resend/${this.token}`);
   }
 }
+
+// .subscribe(
+//   (resp: any) => {
+//     this.usuario = new Usuario(
+//       resp.usuario.nombre,
+//       resp.usuario.email,
+//       resp.usuario.role,
+//       resp.usuario.confirmado,
+//       resp.usuario._id,
+//       resp.usuario.avatar,
+//       resp.usuario.createdAt
+//     );
+//   },
+//   (err) => {
+//     console.log(err);
+//   }
+// );

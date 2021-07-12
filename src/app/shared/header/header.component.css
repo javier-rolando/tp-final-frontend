@@ -1,0 +1,36 @@
+.menu {
+  display: none;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.navigation-items {
+  display: flex;
+  align-items: flex-end;
+  list-style-type: none;
+}
+
+.navigation-item {
+  padding-left: 15px;
+}
+
+/* .navigation-item:last-child {
+  padding-right: 15px;
+} */
+
+.link {
+  text-decoration: none;
+  color: #fff;
+}
+
+@media screen and (max-width: 599px) {
+  .menu {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+  }
+}
