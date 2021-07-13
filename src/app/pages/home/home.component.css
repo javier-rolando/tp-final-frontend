@@ -8,6 +8,21 @@ mat-sidenav {
   width: 250px;
 }
 
-main {
+.titulo {
+  font-weight: bold;
+  font-size: 4rem;
+  text-align: center;
+  margin-top: 21px;
+}
+
+.container {
   padding: 10px;
+  margin: 0 auto;
+  max-width: 800px;
+  display: flex;
+}
+
+.categorias {
+  flex: 1;
+  margin: 0 5px 5px 5px;
 }

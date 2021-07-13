@@ -1,3 +1,11 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+}
+
 .menu {
   display: none;
 }
@@ -6,9 +14,14 @@
   flex: 1 1 auto;
 }
 
+.example-header-image {
+  background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+  background-size: cover;
+}
+
 .navigation-items {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   list-style-type: none;
 }
 

@@ -31,8 +31,6 @@ export class UsuariosService {
         const { nombre, email, role, confirmado, _id, avatar, createdAt } =
           resp.usuario;
 
-        // console.log('1', resp);
-
         this.usuario = new Usuario(
           nombre,
           email,
@@ -43,7 +41,6 @@ export class UsuariosService {
           createdAt
         );
 
-        console.log('1', this.usuario);
         return true;
       }),
       catchError((error) => of(false))
@@ -58,20 +55,3 @@ export class UsuariosService {
     return this.http.get(`${base_url}/users/resend/${this.token}`);
   }
 }
-
-// .subscribe(
-//   (resp: any) => {
-//     this.usuario = new Usuario(
-//       resp.usuario.nombre,
-//       resp.usuario.email,
-//       resp.usuario.role,
-//       resp.usuario.confirmado,
-//       resp.usuario._id,
-//       resp.usuario.avatar,
-//       resp.usuario.createdAt
-//     );
-//   },
-//   (err) => {
-//     console.log(err);
-//   }
-// );

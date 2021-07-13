@@ -1,0 +1,21 @@
+.titulo {
+  text-align: center;
+  font-size: 2.2rem;
+}
+
+.example-card {
+  max-width: 400px;
+  position: sticky;
+  top: 79px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn {
+  flex: 1;
+  padding: 5px 15px;
+  margin: 10px;
+}

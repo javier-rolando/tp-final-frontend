@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="header">
   <button
     mat-icon-button
     class="menu"
@@ -13,6 +13,9 @@
     <ul class="navigation-items">
       <li class="navigation-item" *ngIf="usuario">
         <a routerLink="#" class="link">{{ usuario.nombre }}</a>
+      </li>
+      <li class="navigation-item">
+        <div mat-card-avatar class="example-header-image"></div>
       </li>
       <li class="navigation-item">
         <a routerLink="#" class="link">Probando</a>

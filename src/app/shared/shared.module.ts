@@ -7,9 +7,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { PostComponent } from './post/post.component';
+import { MaterialModule } from '../material/material.module';
+import { CategoriasComponent } from './categorias/categorias.component';
 
 @NgModule({
-  declarations: [HeaderComponent, SidenavListComponent],
+  declarations: [
+    HeaderComponent,
+    SidenavListComponent,
+    PostComponent,
+    CategoriasComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -17,7 +25,13 @@ import { MatListModule } from '@angular/material/list';
     MatIconModule,
     MatButtonModule,
     MatListModule,
+    MaterialModule,
   ],
-  exports: [HeaderComponent, SidenavListComponent],
+  exports: [
+    HeaderComponent,
+    SidenavListComponent,
+    PostComponent,
+    CategoriasComponent,
+  ],
 })
 export class SharedModule {}
