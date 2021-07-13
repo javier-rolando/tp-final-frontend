@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -11,7 +12,10 @@ export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
   public usuario: Usuario;
 
-  constructor(private usuariosService: UsuariosService) {
+  constructor(
+    private usuariosService: UsuariosService,
+    private router: Router
+  ) {
     this.usuario = usuariosService.usuario;
   }
 
@@ -19,5 +23,9 @@ export class HeaderComponent implements OnInit {
 
   onToggleSidenav() {
     this.sidenavToggle.emit();
+  }
+
+  logout() {
+    this.usuariosService.logout();
   }
 }

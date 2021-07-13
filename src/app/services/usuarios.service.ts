@@ -6,6 +6,7 @@ import { LoginForm } from '../interfaces/login-form.interface';
 import { Usuario } from '../models/usuario.model';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 const base_url: string = environment.base_url;
 
@@ -15,7 +16,7 @@ const base_url: string = environment.base_url;
 export class UsuariosService {
   public usuario: Usuario;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -49,6 +50,11 @@ export class UsuariosService {
 
   login(formData: LoginForm) {
     return this.http.post(`${base_url}/users/login`, formData);
+  }
+
+  logout() {
+    this.router.navigateByUrl('/login');
+    localStorage.removeItem('token');
   }
 
   resendEmail() {

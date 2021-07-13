@@ -7,7 +7,7 @@
   >
     <mat-icon>menu</mat-icon>
   </button>
-  <span>Postinger</span>
+  <a routerLink="/" class="link">Postinger!</a>
   <span class="example-spacer"></span>
   <div class="nav">
     <ul class="navigation-items">
@@ -15,10 +15,25 @@
         <a routerLink="#" class="link">{{ usuario.nombre }}</a>
       </li>
       <li class="navigation-item">
-        <div mat-card-avatar class="example-header-image"></div>
-      </li>
-      <li class="navigation-item">
-        <a routerLink="#" class="link">Probando</a>
+        <div
+          mat-card-avatar
+          [matMenuTriggerFor]="menu"
+          class="example-header-image"
+        ></div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>dialpad</mat-icon>
+            <span>Redial</span>
+          </button>
+          <button mat-menu-item disabled>
+            <mat-icon>voicemail</mat-icon>
+            <span>Check voice mail</span>
+          </button>
+          <button (click)="logout()" mat-menu-item>
+            <mat-icon>notifications_off</mat-icon>
+            <span>Cerrar sesión</span>
+          </button>
+        </mat-menu>
       </li>
     </ul>
   </div>
