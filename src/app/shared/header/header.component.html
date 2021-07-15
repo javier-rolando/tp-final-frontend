@@ -11,24 +11,23 @@
   <span class="example-spacer"></span>
   <div class="nav">
     <ul class="navigation-items">
-      <li class="navigation-item" *ngIf="usuario">
+      <li class="navigation-item">
         <a routerLink="#" class="link">{{ usuario.nombre }}</a>
       </li>
       <li class="navigation-item">
+        <mat-card style="display: none"></mat-card>
         <div
           mat-card-avatar
           [matMenuTriggerFor]="menu"
           class="example-header-image"
         ></div>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>dialpad</mat-icon>
-            <span>Redial</span>
-          </button>
-          <button mat-menu-item disabled>
-            <mat-icon>voicemail</mat-icon>
-            <span>Check voice mail</span>
-          </button>
+          <a routerLink="perfil" id="link">
+            <button mat-menu-item>
+              <mat-icon>dialpad</mat-icon>
+              <span>Mi perfil</span>
+            </button>
+          </a>
           <button (click)="logout()" mat-menu-item>
             <mat-icon>notifications_off</mat-icon>
             <span>Cerrar sesión</span>

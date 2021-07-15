@@ -39,6 +39,10 @@
   color: #fff;
 }
 
+#link {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 599px) {
   .menu {
     display: block;

@@ -6,9 +6,18 @@ import { HomeComponent } from './home/home.component';
 import { SharedModule } from '../shared/shared.module';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { PerfilComponent } from './perfil/perfil.component';
+import { PagesComponent } from './pages.component';
+import { MaterialModule } from '../material/material.module';
 
 @NgModule({
-  declarations: [HomeComponent],
-  imports: [CommonModule, PagesRoutingModule, SharedModule, MatSidenavModule],
+  declarations: [HomeComponent, PerfilComponent, PagesComponent],
+  imports: [
+    CommonModule,
+    PagesRoutingModule,
+    SharedModule,
+    MatSidenavModule,
+    MaterialModule,
+  ],
 })
 export class PagesModule {}
