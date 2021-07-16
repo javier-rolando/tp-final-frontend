@@ -1,6 +1,6 @@
 <main class="container">
-  <form autocomplete="off" class="prueba">
-    <div class="login">
+  <form autocomplete="off" class="form">
+    <div class="perfil">
       <h1>Perfil de usuario</h1>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Nombre</mat-label>
@@ -19,15 +19,16 @@
       </button>
     </div>
   </form>
-  <form autocomplete="off" class="prueba">
-    <div class="login avatar">
+  <form autocomplete="off" class="form">
+    <div class="perfil avatar">
       <h1>Avatar</h1>
       <img
         src="https://material.angular.io/assets/img/examples/shiba2.jpg"
         alt="Photo of a Shiba Inu"
         class="imagen"
       />
-      <input type="file" class="file" />
+      <input type="file" id="file" />
+      <label for="file" class="fileBtn">Seleccioná una imagen</label>
       <button class="ancho pad" mat-raised-button mat-button color="primary">
         Cambiar imagen
       </button>
