@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostsService } from 'src/app/services/posts.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
@@ -18,13 +20,17 @@ interface Categoria {
 })
 export class CreatePostComponent implements OnInit {
   public selectedValue: string;
-  public imagenTempUrl: string;
+  public imagenTemp: string;
+  public usuario: Usuario;
 
   constructor(
     private fb: FormBuilder,
     private fileUploadService: FileUploadService,
-    private postsService: PostsService
-  ) {}
+    private postsService: PostsService,
+    private usuariosService: UsuariosService
+  ) {
+    this.usuario = usuariosService.usuario;
+  }
 
   ngOnInit(): void {}
 
@@ -43,7 +49,7 @@ export class CreatePostComponent implements OnInit {
   categorias: Categoria[] = [
     { value: 'Humor', viewValue: 'Humor' },
     { value: 'Deportes', viewValue: 'Deportes' },
-    { value: 'info-2', viewValue: 'Info' },
+    { value: 'Info', viewValue: 'Info' },
     { value: 'Ciencia y educación', viewValue: 'Ciencia y educación' },
     { value: 'Entretenimiento', viewValue: 'Entretenimiento' },
     { value: 'Offtopic', viewValue: 'Offtopic' },
@@ -58,7 +64,7 @@ export class CreatePostComponent implements OnInit {
 
     // this.imagenSubir = input.files[0];
     this.fileUploadService.subirImagen(input.files[0])?.subscribe((resp) => {
-      this.imagenTempUrl = `${base_url}/posts/uploads/${resp}`;
+      this.imagenTemp = resp;
     });
   }
 

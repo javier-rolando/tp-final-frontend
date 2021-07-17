@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { PostComponent } from './post/post.component';
 import { MaterialModule } from '../material/material.module';
 import { CategoriasComponent } from './categorias/categorias.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CategoriasComponent } from './categorias/categorias.component';
     MatButtonModule,
     MatListModule,
     MaterialModule,
+    PipesModule,
   ],
   exports: [
     HeaderComponent,

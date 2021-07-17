@@ -12,6 +12,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { PagesComponent } from './pages.component';
 import { MaterialModule } from '../material/material.module';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    PipesModule,
   ],
 })
 export class PagesModule {}

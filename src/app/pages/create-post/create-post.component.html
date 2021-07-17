@@ -46,6 +46,10 @@
   </form>
   <div class="perfil avatar width">
     <h1>Vista previa de la imagen</h1>
-    <img [src]="imagenTempUrl" class="imagen" />
+    <img
+      *ngIf="imagenTemp"
+      [src]="imagenTemp | imagen: usuario._id:'temp'"
+      class="imagen"
+    />
   </div>
 </main>

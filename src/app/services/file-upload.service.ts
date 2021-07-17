@@ -13,7 +13,7 @@ export class FileUploadService {
 
   subirImagen(archivo: File) {
     try {
-      const url = `${base_url}/posts/upload`;
+      const url = `${base_url}/uploads`;
       const formData = new FormData();
       formData.append('img', archivo);
 
