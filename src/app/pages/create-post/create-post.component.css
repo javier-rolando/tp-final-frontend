@@ -4,9 +4,9 @@
   display: flex;
 }
 
-.form {
+.width {
   width: 50%;
-  margin: 10px;
+  margin: 0 15px;
 }
 
 .perfil {

@@ -77,7 +77,7 @@ export class RegisterComponent implements OnInit {
 
     const { password2, ...formData } = this.registerForm.value;
 
-    console.log(this.registerForm.value);
+    // console.log(this.registerForm.value);
     this.usuariosService.crearUsuario(formData).subscribe(
       (resp: any) => {
         console.log(resp);

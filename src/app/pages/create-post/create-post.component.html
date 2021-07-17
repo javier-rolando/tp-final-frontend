@@ -1,11 +1,18 @@
 <main class="container">
-  <form autocomplete="off" class="form">
+  <form
+    autocomplete="off"
+    class="width"
+    [formGroup]="createPostForm"
+    (ngSubmit)="crearPost()"
+  >
     <div class="perfil">
       <h1>Crear post</h1>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Título</mat-label>
-        <input matInput />
+        <input matInput formControlName="titulo" />
       </mat-form-field>
+      <input type="file" id="file" (change)="subirImagen($event)" />
+      <label for="file" class="fileBtn">Seleccioná una imagen</label>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Contenido</mat-label>
         <textarea
@@ -14,11 +21,16 @@
           cdkAutosizeMinRows="1"
           cdkAutosizeMaxRows="20"
           [rows]="10"
+          formControlName="contenido"
         ></textarea>
       </mat-form-field>
       <mat-form-field appearance="outline" class="ancho">
         <mat-label>Categoría</mat-label>
-        <mat-select [(ngModel)]="selectedValue" name="categoria">
+        <mat-select
+          [(ngModel)]="selectedValue"
+          name="categoria"
+          formControlName="categoria"
+        >
           <mat-option
             *ngFor="let categoria of categorias"
             [value]="categoria.value"
@@ -32,15 +44,8 @@
       </button>
     </div>
   </form>
-  <form autocomplete="off" class="form">
-    <div class="perfil avatar">
-      <h1>Avatar</h1>
-      <img [src]="imagenTempUrl" class="imagen" />
-      <input type="file" id="file" (change)="subirImagen($event)" />
-      <label for="file" class="fileBtn">Seleccioná una imagen</label>
-      <button class="ancho pad" mat-raised-button mat-button color="primary">
-        Cambiar imagen
-      </button>
-    </div>
-  </form>
+  <div class="perfil avatar width">
+    <h1>Vista previa de la imagen</h1>
+    <img [src]="imagenTempUrl" class="imagen" />
+  </div>
 </main>
