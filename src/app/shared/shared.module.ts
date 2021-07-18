@@ -34,6 +34,7 @@ import { PipesModule } from '../pipes/pipes.module';
     SidenavListComponent,
     PostComponent,
     CategoriasComponent,
+    PipesModule,
   ],
 })
 export class SharedModule {}

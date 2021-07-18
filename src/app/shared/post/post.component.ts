@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post.model';
+import { ImagenPipe } from 'src/app/pipes/imagen.pipe';
 
 @Component({
   selector: 'app-post',
@@ -8,8 +9,15 @@ import { Post } from 'src/app/models/post.model';
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
+  public avatarUrl: string;
 
-  constructor() {}
+  constructor(private imagenPipe: ImagenPipe) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.avatarUrl = this.imagenPipe.transform(
+      this.post.usuario.avatar,
+      this.post.usuario._id,
+      'avatar'
+    );
+  }
 }
