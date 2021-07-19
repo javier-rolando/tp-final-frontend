@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { ImagenPipe } from 'src/app/pipes/imagen.pipe';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +14,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private usuariosService: UsuariosService,
-    private router: Router,
-    private imagenPipe: ImagenPipe
+    private router: Router
   ) {
     this.usuario = usuariosService.usuario;
   }

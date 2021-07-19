@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post.model';
-import { ImagenPipe } from 'src/app/pipes/imagen.pipe';
+import { Usuario } from 'src/app/models/usuario.model';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-post',
@@ -9,15 +10,11 @@ import { ImagenPipe } from 'src/app/pipes/imagen.pipe';
 })
 export class PostComponent implements OnInit {
   @Input() post: Post;
-  public avatarUrl: string;
+  public usuario: Usuario;
 
-  constructor(private imagenPipe: ImagenPipe) {}
-
-  ngOnInit(): void {
-    this.avatarUrl = this.imagenPipe.transform(
-      this.post.usuario.avatar,
-      this.post.usuario._id,
-      'avatar'
-    );
+  constructor(private usuariosService: UsuariosService) {
+    this.usuario = usuariosService.usuario;
   }
+
+  ngOnInit(): void {}
 }

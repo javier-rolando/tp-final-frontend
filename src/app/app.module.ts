@@ -10,7 +10,6 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './services/token.interceptor';
-import { ImagenPipe } from './pipes/imagen.pipe';
 
 @NgModule({
   declarations: [AppComponent, NotfoundComponent],
@@ -25,7 +24,6 @@ import { ImagenPipe } from './pipes/imagen.pipe';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    ImagenPipe,
   ],
   bootstrap: [AppComponent],
 })
