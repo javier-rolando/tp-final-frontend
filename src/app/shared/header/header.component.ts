@@ -12,7 +12,6 @@ import { ImagenPipe } from 'src/app/pipes/imagen.pipe';
 export class HeaderComponent implements OnInit {
   @Output() public sidenavToggle = new EventEmitter();
   public usuario: Usuario;
-  public avatarUrl: string;
 
   constructor(
     private usuariosService: UsuariosService,
@@ -20,11 +19,6 @@ export class HeaderComponent implements OnInit {
     private imagenPipe: ImagenPipe
   ) {
     this.usuario = usuariosService.usuario;
-    this.avatarUrl = this.imagenPipe.transform(
-      this.usuario.avatar,
-      this.usuario._id,
-      'avatar'
-    );
   }
 
   ngOnInit(): void {}

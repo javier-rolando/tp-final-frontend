@@ -26,7 +26,9 @@
       <li class="navigation-item">
         <mat-card style="display: none"></mat-card>
         <div
-          [style.background-image]="'url(' + avatarUrl + ')'"
+          [style.background-image]="
+            'url(' + (usuario.avatar | imagen: usuario._id:'avatar') + ')'
+          "
           mat-card-avatar
           [matMenuTriggerFor]="menu"
           class="example-header-image"

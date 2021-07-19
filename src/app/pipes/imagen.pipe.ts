@@ -10,8 +10,12 @@ export class ImagenPipe implements PipeTransform {
   transform(
     img: string,
     userId: string,
-    folder: 'post' | 'temp' | 'avatar'
+    folder: 'post' | 'temp' | 'avatar',
+    tempFolder?: 'post' | 'avatar'
   ): string {
+    if (folder === 'temp' && tempFolder) {
+      return `${base_url}/uploads/${userId}/${folder}/${img}?folder=${tempFolder}`;
+    }
     return `${base_url}/uploads/${userId}/${folder}/${img}`;
   }
 }

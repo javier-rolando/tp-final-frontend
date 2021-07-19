@@ -5,7 +5,7 @@
     [formGroup]="createPostForm"
     (ngSubmit)="crearPost()"
   >
-    <div class="perfil">
+    <div class="create">
       <h1>Crear post</h1>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Título</mat-label>
@@ -44,7 +44,7 @@
       </button>
     </div>
   </form>
-  <div class="perfil avatar width">
+  <div class="create avatar width">
     <h1>Vista previa de la imagen</h1>
     <img
       *ngIf="imagenTemp"

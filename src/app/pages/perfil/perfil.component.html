@@ -1,37 +1,42 @@
 <main class="container">
-  <form autocomplete="off" class="form">
-    <div class="perfil">
+  <form
+    autocomplete="off"
+    class="form"
+    [formGroup]="perfilForm"
+    (ngSubmit)="actualizarUsuario()"
+  >
+    <div class="perfil info">
       <h1>Perfil de usuario</h1>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Nombre</mat-label>
-        <input matInput />
+        <input matInput formControlName="nombre" />
       </mat-form-field>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Email</mat-label>
-        <input type="email" matInput />
+        <input type="email" matInput formControlName="email" />
       </mat-form-field>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Contraseña</mat-label>
-        <input type="password" matInput />
+        <input type="password" matInput formControlName="password" />
       </mat-form-field>
       <button class="ancho pad" mat-raised-button mat-button color="primary">
         Guardar cambios
       </button>
     </div>
-  </form>
-  <form autocomplete="off" class="form">
     <div class="perfil avatar">
       <h1>Avatar</h1>
       <img
-        src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-        alt="Photo of a Shiba Inu"
+        *ngIf="!imagenTemp"
+        [src]="usuario.avatar | imagen: usuario._id:'avatar'"
         class="imagen"
       />
-      <input type="file" id="file" />
+      <img
+        *ngIf="imagenTemp"
+        [src]="imagenTemp | imagen: usuario._id:'temp':'avatar'"
+        class="imagen"
+      />
+      <input type="file" id="file" (change)="subirImagen($event)" />
       <label for="file" class="fileBtn">Seleccioná una imagen</label>
-      <button class="ancho pad" mat-raised-button mat-button color="primary">
-        Cambiar imagen
-      </button>
     </div>
   </form>
 </main>

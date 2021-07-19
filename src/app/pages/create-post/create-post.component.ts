@@ -63,9 +63,11 @@ export class CreatePostComponent implements OnInit {
     }
 
     // this.imagenSubir = input.files[0];
-    this.fileUploadService.subirImagen(input.files[0])?.subscribe((resp) => {
-      this.imagenTemp = resp;
-    });
+    this.fileUploadService
+      .subirImagen(input.files[0], 'post')
+      ?.subscribe((resp) => {
+        this.imagenTemp = resp;
+      });
   }
 
   crearPost() {

@@ -11,9 +11,9 @@ const base_url = environment.base_url;
 export class FileUploadService {
   constructor(private http: HttpClient) {}
 
-  subirImagen(archivo: File) {
+  subirImagen(archivo: File, folder: string) {
     try {
-      const url = `${base_url}/uploads`;
+      const url = `${base_url}/uploads/${folder}`;
       const formData = new FormData();
       formData.append('img', archivo);
 

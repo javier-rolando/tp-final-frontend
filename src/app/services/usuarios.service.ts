@@ -7,6 +7,7 @@ import { Usuario } from '../models/usuario.model';
 import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { UpdateUserForm } from '../interfaces/update-user-form.interface';
 
 const base_url: string = environment.base_url;
 
@@ -59,5 +60,9 @@ export class UsuariosService {
 
   resendEmail() {
     return this.http.get(`${base_url}/users/resend/${this.token}`);
+  }
+
+  actualizarUsuario(formData: UpdateUserForm) {
+    return this.http.put(`${base_url}/users/${this.usuario._id}`, formData);
   }
 }
