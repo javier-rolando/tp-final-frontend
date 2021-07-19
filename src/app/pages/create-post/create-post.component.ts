@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import { environment } from 'src/environments/environment';
-
-const base_url = environment.base_url;
 
 interface Categoria {
   value: string;
@@ -27,12 +26,18 @@ export class CreatePostComponent implements OnInit {
     private fb: FormBuilder,
     private fileUploadService: FileUploadService,
     private postsService: PostsService,
-    private usuariosService: UsuariosService
+    private usuariosService: UsuariosService,
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.usuario = usuariosService.usuario;
   }
 
   ngOnInit(): void {}
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, { duration: 5000 });
+  }
 
   public createPostForm = this.fb.group({
     titulo: [
@@ -77,8 +82,10 @@ export class CreatePostComponent implements OnInit {
     }
 
     this.postsService.crearPost(this.createPostForm.value).subscribe(
-      (resp) => {
+      (resp: any) => {
         console.log(resp);
+        this.openSnackBar('Post creado correctamente', 'Aceptar');
+        this.router.navigateByUrl(`/post/${resp.postCreado._id}`);
       },
       (err) => {
         console.log(err);

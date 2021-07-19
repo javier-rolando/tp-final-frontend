@@ -12,6 +12,7 @@ import { PagesComponent } from './pages.component';
 import { MaterialModule } from '../material/material.module';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { VerPostComponent } from './ver-post/ver-post.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PipesModule } from '../pipes/pipes.module';
     PerfilComponent,
     PagesComponent,
     CreatePostComponent,
+    VerPostComponent,
   ],
   imports: [
     CommonModule,

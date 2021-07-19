@@ -7,9 +7,14 @@ import { Post } from '../models/post.model';
 
 const base_url = environment.base_url;
 
-interface Resp {
+interface RespPosts {
   estado: string;
   posts: Post[];
+}
+
+interface RespPost {
+  estado: string;
+  post: Post;
 }
 
 @Injectable({
@@ -22,9 +27,15 @@ export class PostsService {
     return this.http.post(`${base_url}/posts/create`, formData);
   }
 
+  cargarPostPorId(id: string) {
+    return this.http
+      .get<RespPost>(`${base_url}/posts/${id}`)
+      .pipe(map((resp: RespPost) => resp.post));
+  }
+
   cargarPosts() {
     return this.http
-      .get<Resp>(`${base_url}/posts`)
-      .pipe(map((resp: Resp) => resp.posts));
+      .get<RespPosts>(`${base_url}/posts`)
+      .pipe(map((resp: RespPosts) => resp.posts));
   }
 }
