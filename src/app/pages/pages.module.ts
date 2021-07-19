@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { PerfilComponent } from './perfil/perfil.component';
 import { PagesComponent } from './pages.component';
 import { MaterialModule } from '../material/material.module';
@@ -25,7 +24,6 @@ import { PipesModule } from '../pipes/pipes.module';
     CommonModule,
     PagesRoutingModule,
     SharedModule,
-    MatSidenavModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,

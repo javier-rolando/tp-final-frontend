@@ -48,7 +48,7 @@
     <h1>Vista previa de la imagen</h1>
     <img
       *ngIf="imagenTemp"
-      [src]="imagenTemp | imagen: usuario._id:'temp'"
+      [src]="imagenTemp | imagen: usuario._id:'temp':'post'"
       class="imagen"
     />
   </div>
