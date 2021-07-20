@@ -12,6 +12,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class PostComponent implements OnInit {
   @Input() post: Post;
   public usuario: Usuario;
+  public likeActive: boolean = false;
+  public dislikeActive: boolean = false;
 
   constructor(
     private usuariosService: UsuariosService,
@@ -27,6 +29,8 @@ export class PostComponent implements OnInit {
       (resp: any) => {
         this.post.likes = resp.likes;
         this.post.dislikes = resp.dislikes;
+        this.post.likedBy = resp.likedBy;
+        this.post.dislikedBy = resp.dislikedBy;
       },
       (err) => {
         console.log(err);
@@ -39,6 +43,8 @@ export class PostComponent implements OnInit {
       (resp: any) => {
         this.post.likes = resp.likes;
         this.post.dislikes = resp.dislikes;
+        this.post.likedBy = resp.likedBy;
+        this.post.dislikedBy = resp.dislikedBy;
       },
       (err) => {
         console.log(err);

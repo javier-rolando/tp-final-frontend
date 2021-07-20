@@ -29,10 +29,22 @@
     </p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button (click)="likePost(post._id)">
+    <button
+      mat-button
+      [ngClass]="{
+        'positivo active': post.likedBy.includes(usuario._id)
+      }"
+      (click)="likePost(post._id)"
+    >
       <mat-icon>thumb_up</mat-icon>
     </button>
-    <button mat-button (click)="dislikePost(post._id)">
+    <button
+      mat-button
+      [ngClass]="{
+        'negativo active': post.dislikedBy.includes(usuario._id)
+      }"
+      (click)="dislikePost(post._id)"
+    >
       <mat-icon>thumb_down</mat-icon>
     </button>
     <button mat-button>LIKE</button>
