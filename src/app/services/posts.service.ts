@@ -38,4 +38,12 @@ export class PostsService {
       .get<RespPosts>(`${base_url}/posts`)
       .pipe(map((resp: RespPosts) => resp.posts));
   }
+
+  likePost(id: string) {
+    return this.http.post(`${base_url}/posts/like/${id}`, {});
+  }
+
+  dislikePost(id: string) {
+    return this.http.post(`${base_url}/posts/dislike/${id}`, {});
+  }
 }

@@ -7,7 +7,10 @@ export class Post {
     public titulo: string,
     public contenido: string,
     public categoria: string,
-    public valoracion: boolean,
+    public likes: number,
+    public likedBy: string[],
+    public dislikes: number,
+    public dislikedBy: string[],
     public _id: string,
     public createdAt: Date
   ) {}

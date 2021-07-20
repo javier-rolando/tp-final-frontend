@@ -6,3 +6,16 @@
 .example-header-image {
   background-size: cover;
 }
+
+.valoracion {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.positivo {
+  color: green;
+}
+
+.negativo {
+  color: red;
+}
