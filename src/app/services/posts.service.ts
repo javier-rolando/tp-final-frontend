@@ -39,6 +39,12 @@ export class PostsService {
       .pipe(map((resp: RespPosts) => resp.posts));
   }
 
+  cargarPostsPorCategoria(categoria: string) {
+    return this.http
+      .get<RespPosts>(`${base_url}/posts?categoria=${categoria}`)
+      .pipe(map((resp: RespPosts) => resp.posts));
+  }
+
   likePost(id: string) {
     return this.http.post(`${base_url}/posts/like/${id}`, {});
   }

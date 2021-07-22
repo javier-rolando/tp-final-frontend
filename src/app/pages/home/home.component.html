@@ -7,6 +7,6 @@
     <p>No hay posts para mostrar.</p>
   </section>
   <section class="categorias">
-    <app-categorias></app-categorias>
+    <app-categorias (categoria)="recibirCategoria($event)"></app-categorias>
   </section>
 </main>

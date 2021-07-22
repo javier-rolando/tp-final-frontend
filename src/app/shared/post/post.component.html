@@ -37,7 +37,8 @@
         negativo: post.likes - post.dislikes < 0
       }"
     >
-      {{ post.likes - post.dislikes }}
+      <span *ngIf="post.likes - post.dislikes > 0">+</span
+      >{{ post.likes - post.dislikes }}
     </p>
     <button
       mat-button

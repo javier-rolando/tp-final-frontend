@@ -1,25 +1,67 @@
 <mat-card class="example-card">
   <h2 class="titulo">Categorías</h2>
   <mat-card-content class="content">
-    <button class="btn" mat-raised-button mat-button color="primary">
+    <button
+      class="btn"
+      mat-raised-button
+      mat-button
+      color="primary"
+      (click)="enviarCategoria('todas')"
+    >
       Todas
     </button>
-    <button class="btn" mat-raised-button mat-button color="primary">
+    <button
+      class="btn"
+      mat-raised-button
+      mat-button
+      color="primary"
+      (click)="enviarCategoria('humor')"
+    >
       Humor
     </button>
-    <button class="btn" mat-raised-button mat-button color="primary">
+    <button
+      class="btn"
+      mat-raised-button
+      mat-button
+      color="primary"
+      (click)="enviarCategoria('deportes')"
+    >
       Deportes
     </button>
-    <button class="btn" mat-raised-button mat-button color="primary">
+    <button
+      class="btn"
+      mat-raised-button
+      mat-button
+      color="primary"
+      (click)="enviarCategoria('info')"
+    >
       Info
     </button>
-    <button class="btn" mat-raised-button mat-button color="primary">
+    <button
+      class="btn"
+      mat-raised-button
+      mat-button
+      color="primary"
+      (click)="enviarCategoria('cienciayedu')"
+    >
       Ciencia y educación
     </button>
-    <button class="btn" mat-raised-button mat-button color="primary">
+    <button
+      class="btn"
+      mat-raised-button
+      mat-button
+      color="primary"
+      (click)="enviarCategoria('entretenimiento')"
+    >
       Entretenimiento
     </button>
-    <button class="btn" mat-raised-button mat-button color="primary">
+    <button
+      class="btn"
+      mat-raised-button
+      mat-button
+      color="primary"
+      (click)="enviarCategoria('offtopic')"
+    >
       Offtopic
     </button>
   </mat-card-content>

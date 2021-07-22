@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { Post } from 'src/app/models/post.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { PostsService } from 'src/app/services/posts.service';
@@ -28,5 +28,24 @@ export class HomeComponent implements OnInit {
     this.postsService.cargarPosts().subscribe((posts) => {
       this.posts = posts;
     });
+  }
+
+  recibirCategoria(categoria: string) {
+    if (categoria === 'todas') {
+      return this.cargarPosts();
+    }
+
+    this.cargarPostsPorCategoria(categoria);
+  }
+
+  cargarPostsPorCategoria(categoria: string) {
+    this.postsService.cargarPostsPorCategoria(categoria).subscribe(
+      (posts) => {
+        this.posts = posts;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
