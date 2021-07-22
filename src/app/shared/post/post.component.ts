@@ -12,8 +12,6 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class PostComponent implements OnInit {
   @Input() post: Post;
   public usuario: Usuario;
-  public likeActive: boolean = false;
-  public dislikeActive: boolean = false;
 
   constructor(
     private usuariosService: UsuariosService,

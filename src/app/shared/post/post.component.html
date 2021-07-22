@@ -8,16 +8,28 @@
       class="example-header-image"
     ></div>
     <mat-card-title>{{ post.titulo }}</mat-card-title>
-    <mat-card-subtitle>{{ post.usuario.nombre }}</mat-card-subtitle>
+    <mat-card-subtitle
+      >{{ post.usuario.nombre }} en {{ post.categoria }}</mat-card-subtitle
+    >
   </mat-card-header>
   <img mat-card-image [src]="post.imagen | imagen: post.usuario._id:'post'" />
   <mat-card-content>
     <p>
       {{ post.contenido }}
     </p>
-    <p>
-      {{ post.categoria }}
-    </p>
+    <mat-divider></mat-divider>
+  </mat-card-content>
+  <mat-card-actions class="actions">
+    <button
+      mat-button
+      class="boton"
+      [ngClass]="{
+        'positivo active': post.likedBy.includes(usuario._id)
+      }"
+      (click)="likePost(post._id)"
+    >
+      <mat-icon>thumb_up</mat-icon>
+    </button>
     <p
       class="valoracion"
       [ngClass]="{
@@ -27,19 +39,9 @@
     >
       {{ post.likes - post.dislikes }}
     </p>
-  </mat-card-content>
-  <mat-card-actions>
     <button
       mat-button
-      [ngClass]="{
-        'positivo active': post.likedBy.includes(usuario._id)
-      }"
-      (click)="likePost(post._id)"
-    >
-      <mat-icon>thumb_up</mat-icon>
-    </button>
-    <button
-      mat-button
+      class="boton"
       [ngClass]="{
         'negativo active': post.dislikedBy.includes(usuario._id)
       }"
@@ -47,7 +49,5 @@
     >
       <mat-icon>thumb_down</mat-icon>
     </button>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
   </mat-card-actions>
 </mat-card>
