@@ -12,6 +12,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class HomeComponent implements OnInit {
   public usuario: Usuario;
   public posts: Post[] = [];
+  private categoriaTemp: string;
 
   constructor(
     private usuariosService: UsuariosService,
@@ -31,11 +32,17 @@ export class HomeComponent implements OnInit {
   }
 
   recibirCategoria(categoria: string) {
+    if (this.categoriaTemp === categoria) {
+      return;
+    }
+
     if (categoria === 'todas') {
+      this.categoriaTemp = categoria;
       return this.cargarPosts();
     }
 
     this.cargarPostsPorCategoria(categoria);
+    this.categoriaTemp = categoria;
   }
 
   cargarPostsPorCategoria(categoria: string) {
