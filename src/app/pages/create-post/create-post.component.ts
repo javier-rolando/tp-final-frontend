@@ -83,7 +83,6 @@ export class CreatePostComponent implements OnInit {
 
     this.postsService.crearPost(this.createPostForm.value).subscribe(
       (resp: any) => {
-        console.log(resp);
         this.openSnackBar('Post creado correctamente', 'Aceptar');
         this.router.navigateByUrl(`/post/${resp.postCreado._id}`);
       },

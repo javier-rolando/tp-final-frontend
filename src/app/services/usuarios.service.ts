@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UpdateUserForm } from '../interfaces/update-user-form.interface';
+import { ChangePassForm } from '../interfaces/change-pass-form.interface';
 
 const base_url: string = environment.base_url;
 
@@ -64,5 +65,12 @@ export class UsuariosService {
 
   actualizarUsuario(formData: UpdateUserForm) {
     return this.http.put(`${base_url}/users/${this.usuario._id}`, formData);
+  }
+
+  cambiarPassword(formData: ChangePassForm) {
+    return this.http.put(
+      `${base_url}/users/${this.usuario._id}/password`,
+      formData
+    );
   }
 }

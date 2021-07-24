@@ -15,10 +15,9 @@
         <mat-label>Email</mat-label>
         <input type="email" matInput formControlName="email" />
       </mat-form-field>
-      <mat-form-field class="ancho" appearance="outline">
-        <mat-label>Contraseña</mat-label>
-        <input type="password" matInput formControlName="password" />
-      </mat-form-field>
+      <button type="button" mat-button class="contra" (click)="abrirDialog()">
+        Cambiar contraseña
+      </button>
       <button class="ancho pad" mat-raised-button mat-button color="primary">
         Guardar cambios
       </button>

@@ -1,0 +1,32 @@
+<form
+  autocomplete="off"
+  [formGroup]="changePasswordForm"
+  (ngSubmit)="cambiarPassword()"
+>
+  <div mat-dialog-content class="content">
+    <mat-form-field appearance="outline">
+      <mat-label>Vieja contraseña</mat-label>
+      <input type="password" matInput formControlName="oldPass" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Nueva contraseña</mat-label>
+      <input type="password" matInput formControlName="newPass" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Confirmar nueva contraseña</mat-label>
+      <input type="password" matInput formControlName="confirmNewPass" />
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="actions">
+    <button type="button" mat-button (click)="onNoClick()" class="cancelar">
+      Cancelar
+    </button>
+    <button mat-button cdkFocusInitial class="aceptar">Cambiar</button>
+  </div>
+</form>
+
+<!-- [mat-dialog-close]="{
+      oldPass: data.oldPass,
+      newPass: data.newPass,
+      confirmNewPass: data.confirmNewPass
+    }" -->

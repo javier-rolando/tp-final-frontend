@@ -1,0 +1,17 @@
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancelar {
+  background-color: red;
+}
+
+.aceptar {
+  background-color: green;
+}

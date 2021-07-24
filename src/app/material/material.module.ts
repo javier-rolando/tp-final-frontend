@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -29,6 +30,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSidenavModule,
     MatSnackBarModule,
     MatDividerModule,
+    MatDialogModule,
   ],
   exports: [
     MatCardModule,
@@ -43,6 +45,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatSidenavModule,
     MatSnackBarModule,
     MatDividerModule,
+    MatDialogModule,
   ],
 })
 export class MaterialModule {}

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePassComponent } from 'src/app/components/change-pass/change-pass.component';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -17,7 +19,8 @@ export class OpcionesComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    public dialog: MatDialog
   ) {
     this.usuario = usuariosService.usuario;
   }
@@ -40,7 +43,6 @@ export class OpcionesComponent implements OnInit {
           Validators.maxLength(100),
         ],
       ],
-      password: ['', [Validators.minLength(6), Validators.maxLength(100)]],
     });
   }
 
@@ -85,5 +87,11 @@ export class OpcionesComponent implements OnInit {
       }
     );
     console.log(body);
+  }
+
+  abrirDialog() {
+    this.dialog.open(ChangePassComponent, {
+      width: '400px',
+    });
   }
 }
