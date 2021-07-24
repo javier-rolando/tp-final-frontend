@@ -34,7 +34,7 @@
           class="example-header-image"
         ></div>
         <mat-menu #menu="matMenu">
-          <a routerLink="perfil" id="link">
+          <a [routerLink]="['perfil', usuario._id]" id="link">
             <button mat-menu-item>
               <mat-icon>dialpad</mat-icon>
               <span>Mi perfil</span>

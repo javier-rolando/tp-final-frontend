@@ -1,0 +1,30 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.example-header-image {
+  background-size: cover;
+  width: 150px;
+  height: 150px;
+  margin-right: 50px;
+}
+
+.info {
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nombre {
+  font-size: 4rem;
+}
+
+.posts {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  grid-gap: 20px;
+}

@@ -1,0 +1,6 @@
+<mat-card class="card" [routerLink]="['/post', post._id]">
+  <mat-card-header>
+    <mat-card-title>{{ post.titulo }}</mat-card-title>
+  </mat-card-header>
+  <img mat-card-image [src]="post.imagen | imagen: post.usuario._id:'post'" />
+</mat-card>

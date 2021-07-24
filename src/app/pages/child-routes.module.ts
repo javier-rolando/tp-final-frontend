@@ -9,7 +9,7 @@ import { VerPostComponent } from './ver-post/ver-post.component';
 const childRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'post/:id', component: VerPostComponent },
-  { path: 'perfil', component: PerfilComponent },
+  { path: 'perfil/:id', component: PerfilComponent },
   { path: 'opciones', component: OpcionesComponent },
   { path: 'crear', component: CreatePostComponent },
 ];

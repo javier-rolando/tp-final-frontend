@@ -30,6 +30,10 @@ mat-card-content {
   background-color: rgb(207, 207, 207);
 }
 
+.cursor {
+  cursor: pointer;
+}
+
 .actions {
   display: flex;
   align-items: center;

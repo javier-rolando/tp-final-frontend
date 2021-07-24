@@ -45,6 +45,12 @@ export class PostsService {
       .pipe(map((resp: RespPosts) => resp.posts));
   }
 
+  cargarPostsPorUsuario(id: string) {
+    return this.http
+      .get<RespPosts>(`${base_url}/posts/user/${id}`)
+      .pipe(map((resp: RespPosts) => resp.posts));
+  }
+
   likePost(id: string) {
     return this.http.post(`${base_url}/posts/like/${id}`, {});
   }
