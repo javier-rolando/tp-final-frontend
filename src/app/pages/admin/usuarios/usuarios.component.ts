@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { BorrarUsuarioComponent } from 'src/app/components/borrar-usuario/borrar-usuario.component';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -22,12 +24,17 @@ export class UsuariosComponent implements OnInit {
   public resultsLength = 0;
   public isLoadingResults = true;
   public isRateLimitReached = false;
+
+  private usuario: Usuario;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private usuariosService: UsuariosService,
-    private _snackBar: MatSnackBar
-  ) {}
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
+  ) {
+    this.usuario = usuariosService.usuario;
+  }
 
   displayedColumns = [
     'avatar',
@@ -48,7 +55,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, { duration: 5000 });
+    this._snackBar.open(message, action);
   }
 
   cargarUsuarios() {
@@ -85,10 +92,44 @@ export class UsuariosComponent implements OnInit {
       role,
     };
 
-    this.usuariosService.cambiarRole(id, body).subscribe((resp) => {
-      console.log(resp);
+    this.usuariosService.cambiarRole(id, body).subscribe(
+      (resp) => {
+        console.log(resp);
+        this.openSnackBar('Role actualizado', 'Aceptar');
+      },
+      (err) => {
+        console.log(err);
+        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      }
+    );
+  }
+
+  borrarUsuario(id: string) {
+    if (id === this.usuario._id) {
+      this._snackBar.open('No puede borrarse a sí mismo', 'Aceptar', {
+        duration: 5000,
+      });
+      return;
+    }
+
+    const dialogRef = this.dialog.open(BorrarUsuarioComponent, {
+      width: '400px',
     });
 
-    this.openSnackBar('Role actualizado', 'Aceptar');
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.usuariosService.borrarUsuario(id).subscribe(
+          (resp: any) => {
+            this.cargarUsuarios();
+            this._snackBar.open(resp.mensaje, 'Aceptar', { duration: 5000 });
+          },
+          (err) => {
+            this._snackBar.open(err.error.mensaje, 'Aceptar', {
+              duration: 5000,
+            });
+          }
+        );
+      }
+    });
   }
 }

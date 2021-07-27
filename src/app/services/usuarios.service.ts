@@ -107,4 +107,8 @@ export class UsuariosService {
       formData
     );
   }
+
+  borrarUsuario(id: string) {
+    return this.http.delete(`${base_url}/users/${id}`);
+  }
 }
