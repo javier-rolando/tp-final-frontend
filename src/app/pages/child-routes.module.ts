@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from '../guards/admin.guard';
+import { AdminComponent } from './admin/admin.component';
+import { PostsComponent } from './admin/posts/posts.component';
+import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { HomeComponent } from './home/home.component';
 import { OpcionesComponent } from './opciones/opciones.component';
@@ -12,6 +16,17 @@ const childRoutes: Routes = [
   { path: 'perfil/:id', component: PerfilComponent },
   { path: 'opciones', component: OpcionesComponent },
   { path: 'crear', component: CreatePostComponent },
+
+  // Rutas de Admin
+  {
+    path: 'admin',
+    canActivate: [AdminGuard],
+    component: AdminComponent,
+    children: [
+      { path: 'usuarios', component: UsuariosComponent },
+      { path: 'posts', component: PostsComponent },
+    ],
+  },
 ];
 
 @NgModule({

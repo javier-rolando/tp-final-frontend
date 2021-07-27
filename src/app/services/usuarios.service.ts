@@ -9,6 +9,8 @@ import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UpdateUserForm } from '../interfaces/update-user-form.interface';
 import { ChangePassForm } from '../interfaces/change-pass-form.interface';
+import { GetUsuarios } from '../interfaces/get-usuarios.interface';
+import { CambiarRole } from '../interfaces/cambiar-role.interface';
 
 const base_url: string = environment.base_url;
 
@@ -22,6 +24,10 @@ export class UsuariosService {
 
   get token(): string {
     return localStorage.getItem('token') || '';
+  }
+
+  get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
+    return this.usuario.role;
   }
 
   crearUsuario(formData: RegisterForm) {
@@ -50,6 +56,30 @@ export class UsuariosService {
     );
   }
 
+  getUsuarios() {
+    return this.http.get<GetUsuarios>(`${base_url}/users/all`).pipe(
+      map((resp) => {
+        const usuarios = resp.usuarios.map(
+          (user) =>
+            new Usuario(
+              user.nombre,
+              user.email,
+              user.role,
+              user.confirmado,
+              user._id,
+              user.avatar,
+              user.createdAt
+            )
+        );
+
+        return {
+          total: resp.total,
+          usuarios,
+        };
+      })
+    );
+  }
+
   login(formData: LoginForm) {
     return this.http.post(`${base_url}/users/login`, formData);
   }
@@ -65,6 +95,10 @@ export class UsuariosService {
 
   actualizarUsuario(formData: UpdateUserForm) {
     return this.http.put(`${base_url}/users/${this.usuario._id}`, formData);
+  }
+
+  cambiarRole(id: string, data: CambiarRole) {
+    return this.http.put(`${base_url}/users/${id}`, data);
   }
 
   cambiarPassword(formData: ChangePassForm) {

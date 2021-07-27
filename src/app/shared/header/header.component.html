@@ -21,7 +21,9 @@
         </button>
       </li>
       <li class="navigation-item">
-        <a routerLink="#" class="link">{{ usuario.nombre }}</a>
+        <a [routerLink]="['perfil', usuario._id]" class="link">{{
+          usuario.nombre
+        }}</a>
       </li>
       <li class="navigation-item">
         <mat-card style="display: none"></mat-card>

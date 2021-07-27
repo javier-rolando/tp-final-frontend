@@ -1,0 +1,35 @@
+table {
+  width: 80vw;
+  min-width: 50vw;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.align {
+  text-align: center;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.role ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.w250 {
+  width: 250px;
+}
+
+.role {
+  width: 80%;
+}
+
+.avatar {
+  width: 75px;
+  border-radius: 50%;
+  margin: 5px 0;
+}
