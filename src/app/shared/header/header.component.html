@@ -11,6 +11,25 @@
   <span class="example-spacer"></span>
   <div class="nav">
     <ul class="navigation-items">
+      <li class="navigation-item" *ngIf="usuario.role === 'ADMIN_ROLE'">
+        <button mat-flat-button color="accent" [matMenuTriggerFor]="admin">
+          Admin
+        </button>
+        <mat-menu #admin="matMenu">
+          <a [routerLink]="['admin', 'usuarios']" id="link">
+            <button mat-menu-item>
+              <mat-icon>person</mat-icon>
+              <span>Usuarios</span>
+            </button>
+          </a>
+          <a [routerLink]="['admin', 'posts']" id="link">
+            <button mat-menu-item>
+              <mat-icon>image</mat-icon>
+              <span>Posts</span>
+            </button>
+          </a>
+        </mat-menu>
+      </li>
       <li class="navigation-item">
         <button
           routerLink="crear"
@@ -38,18 +57,18 @@
         <mat-menu #menu="matMenu">
           <a [routerLink]="['perfil', usuario._id]" id="link">
             <button mat-menu-item>
-              <mat-icon>dialpad</mat-icon>
+              <mat-icon>account_circle</mat-icon>
               <span>Mi perfil</span>
             </button>
           </a>
           <a routerLink="opciones" id="link">
             <button mat-menu-item>
-              <mat-icon>dialpad</mat-icon>
+              <mat-icon>settings</mat-icon>
               <span>Opciones</span>
             </button>
           </a>
           <button (click)="logout()" mat-menu-item>
-            <mat-icon>notifications_off</mat-icon>
+            <mat-icon>logout</mat-icon>
             <span>Cerrar sesión</span>
           </button>
         </mat-menu>

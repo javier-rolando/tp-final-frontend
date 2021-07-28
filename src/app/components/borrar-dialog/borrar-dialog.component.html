@@ -1,5 +1,5 @@
-<h2>¿Seguro que deseas borrar el usuario?</h2>
-<div mat-dialog-actions>
+<h2>¿Seguro que deseas borrar el {{ data.toDelete }}?</h2>
+<div mat-dialog-actions class="actions">
   <button mat-button (click)="onNoClick()">Cancelar</button>
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Aceptar</button>
 </div>

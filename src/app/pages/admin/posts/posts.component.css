@@ -1,0 +1,33 @@
+.titulo {
+  font-weight: bold;
+  font-size: 4rem;
+  text-align: center;
+  margin-top: 21px;
+}
+
+table {
+  width: 80vw;
+  min-width: 50vw;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.align {
+  text-align: center;
+}
+
+.cursor {
+  cursor: pointer;
+}
+
+.role ::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+.post {
+  width: 75px;
+  margin: 5px 0;
+}

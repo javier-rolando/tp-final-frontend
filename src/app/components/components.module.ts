@@ -7,10 +7,10 @@ import { RouterModule } from '@angular/router';
 import { ChangePassComponent } from './change-pass/change-pass.component';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BorrarUsuarioComponent } from './borrar-usuario/borrar-usuario.component';
+import { BorrarDialogComponent } from './borrar-dialog/borrar-dialog.component';
 
 @NgModule({
-  declarations: [MiniPostComponent, ChangePassComponent, BorrarUsuarioComponent],
+  declarations: [MiniPostComponent, ChangePassComponent, BorrarDialogComponent],
   imports: [
     CommonModule,
     MaterialModule,

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CreatePostForm } from '../interfaces/create-post-form.interface';
+import { GetPosts } from '../interfaces/get-posts.interface';
 import { Post } from '../models/post.model';
 
 const base_url = environment.base_url;
@@ -34,9 +35,7 @@ export class PostsService {
   }
 
   cargarPosts() {
-    return this.http
-      .get<RespPosts>(`${base_url}/posts`)
-      .pipe(map((resp: RespPosts) => resp.posts));
+    return this.http.get<GetPosts>(`${base_url}/posts`);
   }
 
   cargarPostsPorCategoria(categoria: string) {
@@ -49,6 +48,10 @@ export class PostsService {
     return this.http
       .get<RespPosts>(`${base_url}/posts/user/${id}`)
       .pipe(map((resp: RespPosts) => resp.posts));
+  }
+
+  borrarPost(id: string) {
+    return this.http.delete(`${base_url}/posts/${id}`);
   }
 
   likePost(id: string) {

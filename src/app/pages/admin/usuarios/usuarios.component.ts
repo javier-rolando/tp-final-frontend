@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { BorrarUsuarioComponent } from 'src/app/components/borrar-usuario/borrar-usuario.component';
+import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -24,20 +24,20 @@ export class UsuariosComponent implements OnInit {
   public resultsLength = 0;
   public isLoadingResults = true;
   public isRateLimitReached = false;
-
   private usuario: Usuario;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     private usuariosService: UsuariosService,
     private _snackBar: MatSnackBar,
-    public dialog: MatDialog
+    private dialog: MatDialog
   ) {
     this.usuario = usuariosService.usuario;
   }
 
   displayedColumns = [
     'avatar',
+    'id',
     'email',
     'nombre',
     'role',
@@ -55,7 +55,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
+    this._snackBar.open(message, action, { duration: 5000 });
   }
 
   cargarUsuarios() {
@@ -112,8 +112,9 @@ export class UsuariosComponent implements OnInit {
       return;
     }
 
-    const dialogRef = this.dialog.open(BorrarUsuarioComponent, {
+    const dialogRef = this.dialog.open(BorrarDialogComponent, {
       width: '400px',
+      data: { toDelete: 'usuario' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -121,12 +122,10 @@ export class UsuariosComponent implements OnInit {
         this.usuariosService.borrarUsuario(id).subscribe(
           (resp: any) => {
             this.cargarUsuarios();
-            this._snackBar.open(resp.mensaje, 'Aceptar', { duration: 5000 });
+            this.openSnackBar(resp.mensaje, 'Aceptar');
           },
           (err) => {
-            this._snackBar.open(err.error.mensaje, 'Aceptar', {
-              duration: 5000,
-            });
+            this.openSnackBar(err.error.mensaje, 'Aceptar');
           }
         );
       }

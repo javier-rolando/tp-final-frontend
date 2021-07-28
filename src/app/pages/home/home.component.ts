@@ -26,8 +26,8 @@ export class HomeComponent implements OnInit {
   }
 
   cargarPosts() {
-    this.postsService.cargarPosts().subscribe((posts) => {
-      this.posts = posts;
+    this.postsService.cargarPosts().subscribe((resp: any) => {
+      this.posts = resp.posts;
     });
   }
 
