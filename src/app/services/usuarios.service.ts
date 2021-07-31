@@ -23,7 +23,9 @@ export class UsuariosService {
   constructor(private http: HttpClient, private router: Router) {}
 
   get token(): string {
-    return localStorage.getItem('token') || '';
+    return (
+      localStorage.getItem('token') || sessionStorage.getItem('token') || ''
+    );
   }
 
   get role(): 'ADMIN_ROLE' | 'USER_ROLE' {
@@ -87,6 +89,7 @@ export class UsuariosService {
   logout() {
     this.router.navigateByUrl('/login');
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 
   resendEmail() {

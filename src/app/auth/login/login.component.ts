@@ -20,13 +20,19 @@ export class LoginComponent implements OnInit {
   public loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
+    recordarme: false,
   });
 
   login() {
-    console.log(this.loginForm.value);
-    this.usuariosService.login(this.loginForm.value).subscribe(
+    const { recordarme, ...loginData } = this.loginForm.value;
+
+    this.usuariosService.login(loginData).subscribe(
       (resp: any) => {
-        localStorage.setItem('token', resp.token);
+        if (recordarme) {
+          localStorage.setItem('token', resp.token);
+        } else {
+          sessionStorage.setItem('token', resp.token);
+        }
 
         this.router.navigateByUrl('/');
       },
