@@ -9,7 +9,11 @@
   padding: 10px;
   margin: 0 auto;
   max-width: 800px;
+}
+
+.flex {
   display: flex;
+  margin-top: 21px;
 }
 
 .categorias {

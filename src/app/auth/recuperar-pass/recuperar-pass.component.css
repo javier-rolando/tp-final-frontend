@@ -1,0 +1,22 @@
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #3f51b5;
+  height: 100vh;
+}
+.reset {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+  text-align: center;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.5);
+}
+
+.ancho {
+  width: 100%;
+}

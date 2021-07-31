@@ -1,12 +1,15 @@
 <h1 class="titulo">¡Bienvenido, {{ usuario.nombre }}! 😄</h1>
 <main class="container">
-  <section *ngIf="posts" class="posts">
-    <app-post *ngFor="let post of posts" [post]="post"></app-post>
-  </section>
-  <section *ngIf="posts.length === 0">
-    <p>No hay posts para mostrar.</p>
-  </section>
-  <section class="categorias">
-    <app-categorias (categoria)="recibirCategoria($event)"></app-categorias>
-  </section>
+  <mat-divider></mat-divider>
+  <div class="flex">
+    <section *ngIf="posts" class="posts">
+      <app-post *ngFor="let post of posts" [post]="post"></app-post>
+    </section>
+    <section *ngIf="posts.length === 0">
+      <p>No hay posts para mostrar.</p>
+    </section>
+    <section class="categorias">
+      <app-categorias (categoria)="recibirCategoria($event)"></app-categorias>
+    </section>
+  </div>
 </main>

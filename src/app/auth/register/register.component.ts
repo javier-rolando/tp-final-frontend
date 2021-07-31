@@ -16,8 +16,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
-  // public formSubmitido = false;
-
   constructor(
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
@@ -69,8 +67,6 @@ export class RegisterComponent implements OnInit {
   );
 
   crearUsuario() {
-    // this.formSubmitido = true;
-
     if (this.registerForm.invalid) {
       return;
     }

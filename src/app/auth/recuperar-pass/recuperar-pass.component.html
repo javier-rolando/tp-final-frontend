@@ -1,0 +1,18 @@
+<div class="body">
+  <form autocomplete="off" [formGroup]="resetForm" (ngSubmit)="resetearPass()">
+    <div class="reset">
+      <h1>Ingresar nueva contraseña</h1>
+      <mat-form-field class="ancho" appearance="outline">
+        <mat-label>Nueva contraseña</mat-label>
+        <input type="password" matInput formControlName="password" />
+      </mat-form-field>
+      <mat-form-field class="ancho" appearance="outline">
+        <mat-label>Confirmar nueva contraseña</mat-label>
+        <input type="password" matInput formControlName="password2" />
+      </mat-form-field>
+      <button class="ancho" mat-raised-button mat-button color="primary">
+        Resetear contraseña
+      </button>
+    </div>
+  </form>
+</div>
