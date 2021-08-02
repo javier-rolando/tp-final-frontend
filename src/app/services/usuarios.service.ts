@@ -92,6 +92,10 @@ export class UsuariosService {
     sessionStorage.removeItem('token');
   }
 
+  renewToken() {
+    return this.http.get(`${base_url}/users/renew`);
+  }
+
   resendEmail() {
     return this.http.get(`${base_url}/users/resend/${this.token}`);
   }

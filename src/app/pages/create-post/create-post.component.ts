@@ -68,11 +68,14 @@ export class CreatePostComponent implements OnInit {
     }
 
     // this.imagenSubir = input.files[0];
-    this.fileUploadService
-      .subirImagen(input.files[0], 'post')
-      ?.subscribe((resp) => {
+    this.fileUploadService.subirImagen(input.files[0], 'post')?.subscribe(
+      (resp) => {
         this.imagenTemp = resp;
-      });
+      },
+      (err) => {
+        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      }
+    );
   }
 
   crearPost() {
@@ -87,7 +90,7 @@ export class CreatePostComponent implements OnInit {
         this.router.navigateByUrl(`/post/${resp.postCreado._id}`);
       },
       (err) => {
-        console.log(err);
+        this.openSnackBar(err.error.mensaje, 'Aceptar');
       }
     );
   }
