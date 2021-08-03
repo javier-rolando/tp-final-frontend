@@ -8,7 +8,21 @@
       </mat-form-field>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Contraseña</mat-label>
-        <input type="password" matInput formControlName="password" />
+        <input
+          [type]="hide ? 'password' : 'text'"
+          matInput
+          formControlName="password"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Esconder contraseña'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
       </mat-form-field>
       <mat-checkbox class="checkbox" formControlName="recordarme"
         >Recordarme</mat-checkbox

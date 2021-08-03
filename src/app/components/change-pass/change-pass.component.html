@@ -6,15 +6,57 @@
   <div mat-dialog-content class="content">
     <mat-form-field appearance="outline">
       <mat-label>Vieja contraseña</mat-label>
-      <input type="password" matInput formControlName="oldPass" />
+      <input
+        [type]="hide ? 'password' : 'text'"
+        matInput
+        formControlName="oldPass"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Esconder contraseña'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Nueva contraseña</mat-label>
-      <input type="password" matInput formControlName="newPass" />
+      <input
+        [type]="hide2 ? 'password' : 'text'"
+        matInput
+        formControlName="newPass"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hide2 = !hide2"
+        [attr.aria-label]="'Esconder contraseña'"
+        [attr.aria-pressed]="hide2"
+      >
+        <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Confirmar nueva contraseña</mat-label>
-      <input type="password" matInput formControlName="confirmNewPass" />
+      <input
+        [type]="hide3 ? 'password' : 'text'"
+        matInput
+        formControlName="confirmNewPass"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        (click)="hide3 = !hide3"
+        [attr.aria-label]="'Esconder contraseña'"
+        [attr.aria-pressed]="hide3"
+      >
+        <mat-icon>{{ hide3 ? "visibility_off" : "visibility" }}</mat-icon>
+      </button>
     </mat-form-field>
   </div>
   <div mat-dialog-actions class="actions">

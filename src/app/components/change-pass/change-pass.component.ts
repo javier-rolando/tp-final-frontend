@@ -10,6 +10,10 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   styleUrls: ['./change-pass.component.css'],
 })
 export class ChangePassComponent implements OnInit {
+  public hide: boolean = true;
+  public hide2: boolean = true;
+  public hide3: boolean = true;
+
   constructor(
     public dialogRef: MatDialogRef<ChangePassComponent>,
     private fb: FormBuilder,

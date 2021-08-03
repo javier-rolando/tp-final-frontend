@@ -22,14 +22,42 @@
       </mat-form-field>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Contraseña</mat-label>
-        <input type="password" matInput formControlName="password" />
+        <input
+          [type]="hide ? 'password' : 'text'"
+          matInput
+          formControlName="password"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          [attr.aria-label]="'Esconder contraseña'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
         <mat-error *ngIf="campoNoValido('password')">{{
           getMensajeError("password")
         }}</mat-error>
       </mat-form-field>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Confirmar contraseña</mat-label>
-        <input type="password" matInput formControlName="password2" />
+        <input
+          [type]="hide2 ? 'password' : 'text'"
+          matInput
+          formControlName="password2"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="hide2 = !hide2"
+          [attr.aria-label]="'Esconder contraseña'"
+          [attr.aria-pressed]="hide2"
+        >
+          <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
         <mat-error *ngIf="campoNoValido('password2')">{{
           getMensajeError("password2")
         }}</mat-error>

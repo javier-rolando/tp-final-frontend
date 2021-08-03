@@ -11,6 +11,8 @@ import { PasswordService } from 'src/app/services/password.service';
 })
 export class RecuperarPassComponent implements OnInit {
   private token: string;
+  public hide: boolean = true;
+  public hide2: boolean = true;
 
   constructor(
     private fb: FormBuilder,

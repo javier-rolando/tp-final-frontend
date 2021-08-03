@@ -16,6 +16,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  public hide: boolean = true;
+  public hide2: boolean = true;
+
   constructor(
     private fb: FormBuilder,
     private usuariosService: UsuariosService,

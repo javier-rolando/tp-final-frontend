@@ -9,6 +9,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  public hide: boolean = true;
+
   constructor(
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
