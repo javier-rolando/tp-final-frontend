@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -17,10 +17,12 @@ interface Categoria {
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css'],
 })
-export class CreatePostComponent implements OnInit {
+export class CreatePostComponent implements OnInit, OnDestroy {
   public selectedValue: string;
   public imagenTemp: string;
   public usuario: Usuario;
+  private imagenExists: boolean = false;
+  private imagenSaved: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -34,6 +36,18 @@ export class CreatePostComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    if (this.imagenTemp && !this.imagenSaved)
+      this.fileUploadService
+        .borrarImagenTemp(this.usuario._id, 'post', this.imagenTemp)
+        .subscribe(
+          (resp) => {},
+          (err) => {
+            console.log(err);
+          }
+        );
+  }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, { duration: 5000 });
@@ -67,6 +81,8 @@ export class CreatePostComponent implements OnInit {
       return;
     }
 
+    this.imagenExists = true;
+
     // this.imagenSubir = input.files[0];
     this.fileUploadService.subirImagen(input.files[0], 'post')?.subscribe(
       (resp) => {
@@ -79,13 +95,18 @@ export class CreatePostComponent implements OnInit {
   }
 
   crearPost() {
-    // console.log(this.createPostForm.value);
     if (this.createPostForm.invalid) {
+      return;
+    }
+
+    if (!this.imagenExists) {
+      this.openSnackBar('Falta elegir una imagen', 'Aceptar');
       return;
     }
 
     this.postsService.crearPost(this.createPostForm.value).subscribe(
       (resp: any) => {
+        this.imagenSaved = true;
         this.openSnackBar('Post creado correctamente', 'Aceptar');
         this.router.navigateByUrl(`/post/${resp.postCreado._id}`);
       },
@@ -93,5 +114,47 @@ export class CreatePostComponent implements OnInit {
         this.openSnackBar(err.error.mensaje, 'Aceptar');
       }
     );
+  }
+
+  campoNoValido(campo: string): boolean {
+    if (this.createPostForm.get(campo)?.invalid) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getMensajeError(campo: string): string | void {
+    switch (campo) {
+      case 'titulo':
+        if (this.createPostForm.get('titulo')?.hasError('required')) {
+          return 'El título es obligatorio';
+        } else if (this.createPostForm.get('titulo')?.hasError('minlength')) {
+          return 'El título debe tener al menos 5 caracteres';
+        } else if (this.createPostForm.get('titulo')?.hasError('maxlength')) {
+          return 'El título no debe tener más de 50 caracteres';
+        }
+        break;
+      case 'contenido':
+        if (this.createPostForm.get('contenido')?.hasError('required')) {
+          return 'El contenido es obligatorio';
+        } else if (
+          this.createPostForm.get('contenido')?.hasError('minlength')
+        ) {
+          return 'El contenido debe tener al menos 5 caracteres';
+        } else if (
+          this.createPostForm.get('contenido')?.hasError('maxlength')
+        ) {
+          return 'El contenido no debe tener más de 500 caracteres';
+        }
+        break;
+      case 'categoria':
+        if (this.createPostForm.get('categoria')?.hasError('required')) {
+          return 'La categoría es obligatoria';
+        }
+        break;
+      default:
+        return 'Ha ocurrido un error';
+    }
   }
 }

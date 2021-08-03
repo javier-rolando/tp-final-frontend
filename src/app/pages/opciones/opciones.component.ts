@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePassComponent } from 'src/app/components/change-pass/change-pass.component';
@@ -11,10 +11,11 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   templateUrl: './opciones.component.html',
   styleUrls: ['./opciones.component.css'],
 })
-export class OpcionesComponent implements OnInit {
+export class OpcionesComponent implements OnInit, OnDestroy {
   public usuario: Usuario;
   public opcionesForm: FormGroup;
   public imagenTemp: string;
+  private imagenSaved: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +47,19 @@ export class OpcionesComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    if (this.imagenTemp && !this.imagenSaved) {
+      this.fileUploadService
+        .borrarImagenTemp(this.usuario._id, 'avatar', this.imagenTemp)
+        .subscribe(
+          (resp) => {},
+          (err) => {
+            console.log(err);
+          }
+        );
+    }
+  }
+
   subirImagen(event: Event) {
     const input = event.target as HTMLInputElement;
 
@@ -53,7 +67,6 @@ export class OpcionesComponent implements OnInit {
       return;
     }
 
-    // this.imagenSubir = input.files[0];
     this.fileUploadService
       .subirImagen(input.files[0], 'avatar')
       ?.subscribe((resp) => {
@@ -79,6 +92,7 @@ export class OpcionesComponent implements OnInit {
         this.usuario.nombre = body.nombre;
         this.usuario.email = body.email;
         if (body.avatar) {
+          this.imagenSaved = true;
           this.usuario.avatar = body.avatar;
         }
       },
@@ -86,7 +100,6 @@ export class OpcionesComponent implements OnInit {
         console.log(err);
       }
     );
-    console.log(body);
   }
 
   abrirDialog() {

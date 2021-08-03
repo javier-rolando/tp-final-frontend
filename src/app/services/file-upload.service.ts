@@ -25,4 +25,10 @@ export class FileUploadService {
       return;
     }
   }
+
+  borrarImagenTemp(userId: string, folder: string, nombre: string) {
+    return this.http.delete(
+      `${base_url}/uploads/${userId}/${folder}/${nombre}`
+    );
+  }
 }

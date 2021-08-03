@@ -6,9 +6,9 @@ import {
   ValidationErrors,
   Validators,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {}
@@ -69,6 +70,10 @@ export class RegisterComponent implements OnInit {
     } as AbstractControlOptions
   );
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, { duration: 5000 });
+  }
+
   crearUsuario() {
     if (this.registerForm.invalid) {
       return;
@@ -76,7 +81,6 @@ export class RegisterComponent implements OnInit {
 
     const { password2, ...formData } = this.registerForm.value;
 
-    // console.log(this.registerForm.value);
     this.usuariosService.crearUsuario(formData).subscribe(
       (resp: any) => {
         console.log(resp);
@@ -84,8 +88,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigateByUrl('/confirmation');
       },
       (err) => {
-        console.log(err);
-        // Swal.fire('Error', err, 'error')
+        this.openSnackBar(err.error.mensaje, 'Aceptar');
       }
     );
   }
@@ -114,8 +117,7 @@ export class RegisterComponent implements OnInit {
       case 'email':
         if (this.registerForm.get('email')?.hasError('required')) {
           return 'El email es obligatorio';
-        }
-        if (this.registerForm.get('email')?.hasError('email')) {
+        } else if (this.registerForm.get('email')?.hasError('email')) {
           return 'El email es inválido';
         } else if (this.registerForm.get('email')?.hasError('minlength')) {
           return 'El email debe tener al menos 6 caracteres';
@@ -141,7 +143,7 @@ export class RegisterComponent implements OnInit {
         }
         break;
       default:
-        return 'Error';
+        return 'Ha ocurrido un error';
     }
   }
 

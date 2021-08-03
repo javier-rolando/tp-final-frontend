@@ -10,10 +10,22 @@
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Título</mat-label>
         <input matInput formControlName="titulo" />
+        <mat-error *ngIf="campoNoValido('titulo')">{{
+          getMensajeError("titulo")
+        }}</mat-error>
       </mat-form-field>
-      <input type="file" id="file" (change)="subirImagen($event)" />
-      <label for="file" class="fileBtn">Seleccioná una imagen</label>
-      <mat-form-field class="ancho" appearance="outline">
+      <button
+        type="button"
+        class="ancho marginb"
+        mat-raised-button
+        mat-button
+        color="primary"
+        (click)="input.click()"
+      >
+        Seleccioná una imagen
+      </button>
+      <input type="file" id="file" (change)="subirImagen($event)" #input />
+      <mat-form-field class="ancho margin" appearance="outline">
         <mat-label>Contenido</mat-label>
         <textarea
           matInput
@@ -22,8 +34,11 @@
           cdkAutosizeMaxRows="20"
           formControlName="contenido"
         ></textarea>
+        <mat-error *ngIf="campoNoValido('contenido')">{{
+          getMensajeError("contenido")
+        }}</mat-error>
       </mat-form-field>
-      <mat-form-field appearance="outline" class="ancho">
+      <mat-form-field appearance="outline" class="ancho margin">
         <mat-label>Categoría</mat-label>
         <mat-select
           [(ngModel)]="selectedValue"
@@ -37,8 +52,11 @@
             {{ categoria.viewValue }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="campoNoValido('categoria')">{{
+          getMensajeError("categoria")
+        }}</mat-error>
       </mat-form-field>
-      <button class="ancho" mat-raised-button mat-button color="primary">
+      <button class="ancho margin" mat-raised-button mat-button color="primary">
         Crear
       </button>
     </div>
