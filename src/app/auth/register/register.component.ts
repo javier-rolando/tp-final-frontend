@@ -147,17 +147,6 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  // passwordsNoValidas() {
-  //   const pass1 = this.registerForm.get('password')?.value;
-  //   const pass2 = this.registerForm.get('password2')?.value;
-
-  //   if (pass1 !== pass2 && this.formSubmitido) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
-
   passwordsIguales(
     pass1Name: string,
     pass2Name: string

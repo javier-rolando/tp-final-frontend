@@ -6,21 +6,21 @@
   >
     <div class="login">
       <h1>Registrate en Postinger</h1>
-      <mat-form-field class="ancho" appearance="outline">
+      <mat-form-field class="ancho margin" appearance="outline">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre" />
         <mat-error *ngIf="campoNoValido('nombre')">{{
           getMensajeError("nombre")
         }}</mat-error>
       </mat-form-field>
-      <mat-form-field class="ancho" appearance="outline">
+      <mat-form-field class="ancho margin" appearance="outline">
         <mat-label>Email</mat-label>
         <input type="email" matInput formControlName="email" />
         <mat-error *ngIf="campoNoValido('email')">{{
           getMensajeError("email")
         }}</mat-error>
       </mat-form-field>
-      <mat-form-field class="ancho" appearance="outline">
+      <mat-form-field class="ancho margin" appearance="outline">
         <mat-label>Contraseña</mat-label>
         <input
           [type]="hide ? 'password' : 'text'"
@@ -41,7 +41,7 @@
           getMensajeError("password")
         }}</mat-error>
       </mat-form-field>
-      <mat-form-field class="ancho" appearance="outline">
+      <mat-form-field class="ancho margin" appearance="outline">
         <mat-label>Confirmar contraseña</mat-label>
         <input
           [type]="hide2 ? 'password' : 'text'"
@@ -62,7 +62,7 @@
           getMensajeError("password2")
         }}</mat-error>
       </mat-form-field>
-      <button class="ancho" mat-raised-button mat-button color="primary">
+      <button class="ancho margin" mat-raised-button mat-button color="primary">
         Registrarme
       </button>
       <p class="texto">

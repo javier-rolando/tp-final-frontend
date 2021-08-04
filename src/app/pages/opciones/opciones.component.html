@@ -7,15 +7,26 @@
   >
     <div class="opciones info">
       <h1>Información de usuario</h1>
-      <mat-form-field class="ancho" appearance="outline">
+      <mat-form-field class="ancho margin" appearance="outline">
         <mat-label>Nombre</mat-label>
         <input matInput formControlName="nombre" />
+        <mat-error *ngIf="campoNoValido('nombre')">{{
+          getMensajeError("nombre")
+        }}</mat-error>
       </mat-form-field>
-      <mat-form-field class="ancho" appearance="outline">
+      <mat-form-field class="ancho margin" appearance="outline">
         <mat-label>Email</mat-label>
         <input type="email" matInput formControlName="email" />
+        <mat-error *ngIf="campoNoValido('email')">{{
+          getMensajeError("email")
+        }}</mat-error>
       </mat-form-field>
-      <button type="button" mat-button class="contra" (click)="abrirDialog()">
+      <button
+        type="button"
+        mat-button
+        class="contra margin"
+        (click)="abrirDialog()"
+      >
         Cambiar contraseña
       </button>
       <button class="ancho pad" mat-raised-button mat-button color="primary">
@@ -34,8 +45,17 @@
         [src]="imagenTemp | imagen: usuario._id:'temp':'avatar'"
         class="imagen"
       />
-      <input type="file" id="file" (change)="subirImagen($event)" />
-      <label for="file" class="fileBtn">Seleccioná una imagen</label>
+      <button
+        type="button"
+        class="ancho marginb"
+        mat-raised-button
+        mat-button
+        color="primary"
+        (click)="input.click()"
+      >
+        Seleccioná una imagen
+      </button>
+      <input type="file" id="file" (change)="subirImagen($event)" #input />
     </div>
   </form>
 </main>

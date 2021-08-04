@@ -4,7 +4,7 @@
   (ngSubmit)="cambiarPassword()"
 >
   <div mat-dialog-content class="content">
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="margin">
       <mat-label>Vieja contraseña</mat-label>
       <input
         [type]="hide ? 'password' : 'text'"
@@ -21,8 +21,11 @@
       >
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
+      <mat-error *ngIf="campoNoValido('oldPass')">{{
+        getMensajeError("oldPass")
+      }}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="margin">
       <mat-label>Nueva contraseña</mat-label>
       <input
         [type]="hide2 ? 'password' : 'text'"
@@ -39,8 +42,11 @@
       >
         <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
+      <mat-error *ngIf="campoNoValido('newPass')">{{
+        getMensajeError("newPass")
+      }}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="margin">
       <mat-label>Confirmar nueva contraseña</mat-label>
       <input
         [type]="hide3 ? 'password' : 'text'"
@@ -57,6 +63,9 @@
       >
         <mat-icon>{{ hide3 ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
+      <mat-error *ngIf="campoNoValido('confirmNewPass')">{{
+        getMensajeError("confirmNewPass")
+      }}</mat-error>
     </mat-form-field>
   </div>
   <div mat-dialog-actions class="actions">

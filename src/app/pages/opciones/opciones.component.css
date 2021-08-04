@@ -54,11 +54,10 @@
   margin-bottom: 1.34375em;
 }
 
-.fileBtn {
-  background-color: aqua;
-  padding: 5px 10px;
+.margin {
+  margin-top: 10px;
+}
+
+.marginb {
   margin-top: 15px;
-  border-radius: 5px;
-  align-self: flex-start;
-  cursor: pointer;
 }

@@ -19,6 +19,9 @@
         >
           <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
+        <mat-error *ngIf="campoNoValido('password')">{{
+          getMensajeError("password")
+        }}</mat-error>
       </mat-form-field>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Confirmar nueva contraseña</mat-label>
@@ -37,6 +40,9 @@
         >
           <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
         </button>
+        <mat-error *ngIf="campoNoValido('password2')">{{
+          getMensajeError("password2")
+        }}</mat-error>
       </mat-form-field>
       <button class="ancho" mat-raised-button mat-button color="primary">
         Resetear contraseña

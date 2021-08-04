@@ -20,12 +20,16 @@
   width: 100%;
 }
 
+.margin {
+  margin-top: 10px;
+}
+
 .pad {
   margin-bottom: 1.34375em;
 }
 
 .checkbox {
-  margin: 0 12px;
+  margin: 10px 12px 0;
   padding-bottom: 1.34375em;
   display: flex;
 }
