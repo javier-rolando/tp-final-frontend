@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoggedInGuard } from '../guards/logged-in.guard';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { EmailRecuperarPassComponent } from './email-recuperar-pass/email-recuperar-pass.component';
 import { LoginComponent } from './login/login.component';
@@ -8,12 +9,36 @@ import { RegisterComponent } from './register/register.component';
 import { SentEmailResetComponent } from './sent-email-reset/sent-email-reset.component';
 
 const routes: Routes = [
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'confirmation', component: ConfirmationComponent },
-  { path: 'recuperar-pass', component: EmailRecuperarPassComponent },
-  { path: 'recuperar-pass-email', component: SentEmailResetComponent },
-  { path: 'nueva-pass', component: RecuperarPassComponent },
+  {
+    path: 'register',
+    canActivate: [LoggedInGuard],
+    component: RegisterComponent,
+  },
+  {
+    path: 'login',
+    canActivate: [LoggedInGuard],
+    component: LoginComponent,
+  },
+  {
+    path: 'confirmation',
+    canActivate: [LoggedInGuard],
+    component: ConfirmationComponent,
+  },
+  {
+    path: 'recuperar-pass',
+    canActivate: [LoggedInGuard],
+    component: EmailRecuperarPassComponent,
+  },
+  {
+    path: 'recuperar-pass-email',
+    canActivate: [LoggedInGuard],
+    component: SentEmailResetComponent,
+  },
+  {
+    path: 'nueva-pass',
+    canActivate: [LoggedInGuard],
+    component: RecuperarPassComponent,
+  },
 ];
 
 @NgModule({
