@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 import { ChangePassComponent } from 'src/app/components/change-pass/change-pass.component';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -19,6 +20,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
   private imagenSaved: boolean = false;
 
   constructor(
+    private titleService: Title,
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
     private fileUploadService: FileUploadService,
@@ -26,6 +28,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar
   ) {
     this.usuario = usuariosService.usuario;
+    this.titleService.setTitle('Postinger! | Opciones');
   }
 
   ngOnInit(): void {

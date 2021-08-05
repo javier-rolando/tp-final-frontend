@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
 import { Usuario } from 'src/app/models/usuario.model';
@@ -15,6 +16,7 @@ export class VerPostComponent implements OnInit {
   public usuario: Usuario;
 
   constructor(
+    private titleService: Title,
     private usuariosService: UsuariosService,
     private activatedRoute: ActivatedRoute,
     private postsService: PostsService
@@ -30,6 +32,7 @@ export class VerPostComponent implements OnInit {
     this.postsService.cargarPostPorId(id).subscribe(
       (resp) => {
         this.post = resp;
+        this.titleService.setTitle(`Postinger! | ${this.post.titulo}`);
       },
       (err) => {
         console.log(err);

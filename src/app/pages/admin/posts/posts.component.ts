@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-posts',
@@ -21,10 +22,13 @@ export class PostsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
+    private titleService: Title,
     private postsService: PostsService,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog
-  ) {}
+  ) {
+    this.titleService.setTitle('Postinger! | Mantenimiento de posts');
+  }
 
   displayedColumns = [
     'imagen',

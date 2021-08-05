@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { Title } from '@angular/platform-browser';
 import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -28,11 +29,13 @@ export class UsuariosComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
+    private titleService: Title,
     private usuariosService: UsuariosService,
     private _snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {
     this.usuario = usuariosService.usuario;
+    this.titleService.setTitle('Postinger! | Mantenimiento de usuarios');
   }
 
   displayedColumns = [

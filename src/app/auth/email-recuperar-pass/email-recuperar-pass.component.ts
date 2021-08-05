@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasswordService } from 'src/app/services/password.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-email-recuperar-pass',
@@ -10,10 +11,13 @@ import { PasswordService } from 'src/app/services/password.service';
 })
 export class EmailRecuperarPassComponent implements OnInit {
   constructor(
+    private titleService: Title,
     private fb: FormBuilder,
     private passwordService: PasswordService,
     private router: Router
-  ) {}
+  ) {
+    this.titleService.setTitle('Postinger! | Recuperar contraseña');
+  }
 
   ngOnInit(): void {}
 

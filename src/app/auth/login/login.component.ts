@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +14,14 @@ export class LoginComponent implements OnInit {
   public hide: boolean = true;
 
   constructor(
+    private titleService: Title,
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.titleService.setTitle('Postinger! | Iniciar sesión');
+  }
 
   ngOnInit(): void {}
 

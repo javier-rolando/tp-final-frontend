@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Post } from 'src/app/models/post.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { PostsService } from 'src/app/services/posts.service';
@@ -15,10 +16,12 @@ export class HomeComponent implements OnInit {
   private categoriaTemp: string;
 
   constructor(
+    private titleService: Title,
     private usuariosService: UsuariosService,
     private postsService: PostsService
   ) {
     this.usuario = usuariosService.usuario;
+    this.titleService.setTitle('Postinger! | Home');
   }
 
   ngOnInit(): void {

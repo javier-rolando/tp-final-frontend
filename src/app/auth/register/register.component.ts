@@ -9,6 +9,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -20,11 +21,14 @@ export class RegisterComponent implements OnInit {
   public hide2: boolean = true;
 
   constructor(
+    private titleService: Title,
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.titleService.setTitle('Postinger! | Registro de usuario');
+  }
 
   ngOnInit(): void {}
 

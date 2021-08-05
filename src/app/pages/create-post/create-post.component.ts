@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -25,6 +26,7 @@ export class CreatePostComponent implements OnInit, OnDestroy {
   private imagenSaved: boolean = false;
 
   constructor(
+    private titleService: Title,
     private fb: FormBuilder,
     private fileUploadService: FileUploadService,
     private postsService: PostsService,
@@ -33,6 +35,7 @@ export class CreatePostComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar
   ) {
     this.usuario = usuariosService.usuario;
+    this.titleService.setTitle('Postinger! | Crear post');
   }
 
   ngOnInit(): void {}

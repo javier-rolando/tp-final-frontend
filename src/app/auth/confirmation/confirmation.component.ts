@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-confirmation',
@@ -7,7 +8,12 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   styleUrls: ['./confirmation.component.css'],
 })
 export class ConfirmationComponent implements OnInit {
-  constructor(private usuariosService: UsuariosService) {}
+  constructor(
+    private titleService: Title,
+    private usuariosService: UsuariosService
+  ) {
+    this.titleService.setTitle('Postinger! | Confirmación de email');
+  }
 
   ngOnInit(): void {}
 

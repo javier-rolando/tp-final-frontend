@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
 import { Usuario } from 'src/app/models/usuario.model';
@@ -15,6 +16,7 @@ export class PerfilComponent implements OnInit {
   public posts: Post[] = [];
 
   constructor(
+    private titleService: Title,
     private usuariosService: UsuariosService,
     private postsService: PostsService,
     private activatedRoute: ActivatedRoute
@@ -30,6 +32,9 @@ export class PerfilComponent implements OnInit {
     this.postsService.cargarPostsPorUsuario(id).subscribe((posts) => {
       this.posts = posts;
       this.usuario = posts[0].usuario;
+      this.titleService.setTitle(
+        `Postinger! | Perfil de ${this.usuario.nombre}`
+      );
     });
   }
 }

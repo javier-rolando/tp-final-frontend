@@ -9,6 +9,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordService } from 'src/app/services/password.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-recuperar-pass',
@@ -21,12 +22,15 @@ export class RecuperarPassComponent implements OnInit {
   public hide2: boolean = true;
 
   constructor(
+    private titleService: Title,
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private passwordService: PasswordService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.titleService.setTitle('Postinger! | Ingresar nueva contraseña');
+  }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe(
