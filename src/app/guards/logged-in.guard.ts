@@ -13,7 +13,7 @@ export class LoggedInGuard implements CanActivate {
   ) {}
 
   canActivate(): any {
-    return this.usuariosService.getUsuario().pipe(
+    return this.usuariosService.validarUsuario().pipe(
       take(1),
       map((estaAutenticado) => {
         if (estaAutenticado) {

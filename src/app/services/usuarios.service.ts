@@ -9,7 +9,7 @@ import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UpdateUserForm } from '../interfaces/update-user-form.interface';
 import { ChangePassForm } from '../interfaces/change-pass-form.interface';
-import { GetUsuarios } from '../interfaces/get-usuarios.interface';
+import { GetUsuario, GetUsuarios } from '../interfaces/get-usuarios.interface';
 import { CambiarRole } from '../interfaces/cambiar-role.interface';
 
 const base_url: string = environment.base_url;
@@ -36,7 +36,7 @@ export class UsuariosService {
     return this.http.post(`${base_url}/users/create`, formData);
   }
 
-  getUsuario(): Observable<boolean> {
+  validarUsuario(): Observable<boolean> {
     return this.http.get(`${base_url}/users`).pipe(
       map((resp: any) => {
         const { nombre, email, role, confirmado, _id, avatar, createdAt } =
@@ -55,6 +55,27 @@ export class UsuariosService {
         return true;
       }),
       catchError((error) => of(false))
+    );
+  }
+
+  getUsuario(id: string) {
+    return this.http.get<GetUsuario>(`${base_url}/users/${id}`).pipe(
+      map((resp) => {
+        const { nombre, email, role, confirmado, _id, avatar, createdAt } =
+          resp.usuario;
+
+        const usuario = new Usuario(
+          nombre,
+          email,
+          role,
+          confirmado,
+          _id,
+          avatar,
+          createdAt
+        );
+
+        return usuario;
+      })
     );
   }
 

@@ -23,18 +23,34 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe(({ id }) =>
-      this.cargarPostsPorUsuario(id)
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.cargarUsuario(id);
+      this.cargarPostsPorUsuario(id);
+    });
+  }
+
+  cargarUsuario(id: string) {
+    this.usuariosService.getUsuario(id).subscribe(
+      (usuario) => {
+        this.usuario = usuario;
+        this.titleService.setTitle(
+          `Postinger! | Perfil de ${this.usuario.nombre}`
+        );
+      },
+      (err) => {
+        console.log(err);
+      }
     );
   }
 
   cargarPostsPorUsuario(id: string) {
-    this.postsService.cargarPostsPorUsuario(id).subscribe((posts) => {
-      this.posts = posts;
-      this.usuario = posts[0].usuario;
-      this.titleService.setTitle(
-        `Postinger! | Perfil de ${this.usuario.nombre}`
-      );
-    });
+    this.postsService.cargarPostsPorUsuario(id).subscribe(
+      (posts) => {
+        this.posts = posts;
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 }
