@@ -70,17 +70,17 @@ export class ChangePassComponent implements OnInit {
       return;
     }
 
-    this.usuariosService
-      .cambiarPassword(this.changePasswordForm.value)
-      .subscribe(
-        (resp) => {
-          this.dialogRef.close();
-          this.openSnackBar('Contraseña actualizada', 'Aceptar');
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    const { confirmNewPass, ...formData } = this.changePasswordForm.value;
+
+    this.usuariosService.cambiarPassword(formData).subscribe(
+      (resp) => {
+        this.dialogRef.close();
+        this.openSnackBar('Contraseña actualizada', 'Aceptar');
+      },
+      (err) => {
+        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      }
+    );
   }
 
   campoNoValido(campo: string): boolean {
