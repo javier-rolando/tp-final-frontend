@@ -87,7 +87,6 @@ export class RegisterComponent implements OnInit {
 
     this.usuariosService.crearUsuario(formData).subscribe(
       (resp: any) => {
-        console.log(resp);
         sessionStorage.setItem('token', resp.token);
         this.router.navigateByUrl('/confirmation');
       },

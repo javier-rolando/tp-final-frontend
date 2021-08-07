@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Title } from '@angular/platform-browser';
 
@@ -18,12 +18,22 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private _snackBar: MatSnackBar
   ) {
     this.titleService.setTitle('Postinger! | Iniciar sesión');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (params['confirmado']) {
+        this.openSnackBar(
+          'Email confirmado! Por favor iniciá sesión con los datos registrados',
+          'Aceptar'
+        );
+      }
+    });
+  }
 
   public loginForm = this.fb.group({
     email: [
