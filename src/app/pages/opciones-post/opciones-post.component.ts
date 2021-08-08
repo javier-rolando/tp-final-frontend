@@ -4,8 +4,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
+import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostsService } from 'src/app/services/posts.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 interface Categoria {
   value: string;
@@ -20,6 +22,8 @@ interface Categoria {
 export class OpcionesPostComponent implements OnInit, OnDestroy {
   public selectedValue: string;
   public opcionesPostForm: FormGroup;
+  public usuarioID: string;
+  public usuarioRole: 'ADMIN_ROLE' | 'USER_ROLE';
   public post: Post;
   public imagenTemp: string;
   private imagenSaved: boolean = false;
@@ -27,6 +31,7 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
+    private usuariosService: UsuariosService,
     private postsService: PostsService,
     private fileUploadService: FileUploadService,
     private activatedRoute: ActivatedRoute,
@@ -34,6 +39,8 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
     private _snackBar: MatSnackBar
   ) {
     this.titleService.setTitle('Postinger! | Opciones del post');
+    this.usuarioID = usuariosService.usuario._id;
+    this.usuarioRole = usuariosService.role;
   }
 
   ngOnInit(): void {
@@ -110,7 +117,7 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
     }
 
     this.fileUploadService
-      .subirImagen(input.files[0], 'post')
+      .subirImagen(this.post.usuario._id, input.files[0], 'post')
       ?.subscribe((resp) => {
         this.imagenTemp = resp;
       });

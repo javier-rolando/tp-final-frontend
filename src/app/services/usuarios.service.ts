@@ -121,8 +121,8 @@ export class UsuariosService {
     return this.http.get(`${base_url}/users/resend/${this.token}`);
   }
 
-  actualizarUsuario(formData: UpdateUserForm) {
-    return this.http.put(`${base_url}/users/${this.usuario._id}`, formData);
+  actualizarUsuario(id: string, formData: UpdateUserForm) {
+    return this.http.put(`${base_url}/users/${id}`, formData);
   }
 
   cambiarRole(id: string, data: CambiarRole) {

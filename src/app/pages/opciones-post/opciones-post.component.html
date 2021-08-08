@@ -4,6 +4,7 @@
     class="form"
     [formGroup]="opcionesPostForm"
     (ngSubmit)="actualizarPost()"
+    *ngIf="usuarioID === post.usuario._id || usuarioRole === 'ADMIN_ROLE'"
   >
     <div class="opciones info">
       <h1>Información del post</h1>
@@ -74,4 +75,10 @@
       <input type="file" id="file" (change)="subirImagen($event)" #input />
     </div>
   </form>
+  <h2
+    class="denied"
+    *ngIf="usuarioID !== post.usuario._id && usuarioRole !== 'ADMIN_ROLE'"
+  >
+    Acceso Denegado
+  </h2>
 </main>

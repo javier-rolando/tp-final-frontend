@@ -87,14 +87,16 @@ export class CreatePostComponent implements OnInit, OnDestroy {
     this.imagenExists = true;
 
     // this.imagenSubir = input.files[0];
-    this.fileUploadService.subirImagen(input.files[0], 'post')?.subscribe(
-      (resp) => {
-        this.imagenTemp = resp;
-      },
-      (err) => {
-        this.openSnackBar(err.error.mensaje, 'Aceptar');
-      }
-    );
+    this.fileUploadService
+      .subirImagen(this.usuario._id, input.files[0], 'post')
+      ?.subscribe(
+        (resp) => {
+          this.imagenTemp = resp;
+        },
+        (err) => {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        }
+      );
   }
 
   crearPost() {

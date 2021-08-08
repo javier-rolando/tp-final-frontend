@@ -16,7 +16,7 @@ const childRoutes: Routes = [
   { path: 'post/:id', component: VerPostComponent },
   { path: 'post/:id/opciones', component: OpcionesPostComponent },
   { path: 'perfil/:id', component: PerfilComponent },
-  { path: 'opciones', component: OpcionesComponent },
+  { path: 'perfil/:id/opciones', component: OpcionesComponent },
   { path: 'crear', component: CreatePostComponent },
 
   // Rutas de Admin

@@ -15,7 +15,10 @@
       }}</span>
       en {{ post.categoria }}</mat-card-subtitle
     >
-    <div class="opciones" *ngIf="usuario._id === post.usuario._id">
+    <div
+      class="opciones"
+      *ngIf="usuario._id === post.usuario._id || usuario.role === 'ADMIN_ROLE'"
+    >
       <button
         mat-mini-fab
         color="primary"

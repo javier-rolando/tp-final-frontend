@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { ChangePassComponent } from 'src/app/components/change-pass/change-pass.component';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -15,8 +16,10 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 })
 export class OpcionesComponent implements OnInit, OnDestroy {
   public usuario: Usuario;
+  public usuarioPerfil: Usuario;
   public opcionesForm: FormGroup;
   public imagenTemp: string;
+  public userId: string;
   private imagenSaved: boolean = false;
 
   constructor(
@@ -24,6 +27,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
     private fileUploadService: FileUploadService,
+    private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) {
@@ -32,31 +36,16 @@ export class OpcionesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.opcionesForm = this.fb.group({
-      nombre: [
-        this.usuario.nombre,
-        [
-          Validators.required,
-          Validators.pattern(/^([A-Z]|[a-z])+$/),
-          Validators.minLength(3),
-          Validators.maxLength(30),
-        ],
-      ],
-      email: [
-        this.usuario.email,
-        [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(100),
-        ],
-      ],
+    this.activatedRoute.params.subscribe(({ id }) => {
+      this.userId = id;
+      this.cargarUsuario(id);
     });
   }
 
   ngOnDestroy(): void {
     if (this.imagenTemp && !this.imagenSaved) {
       this.fileUploadService
-        .borrarImagenTemp(this.usuario._id, 'avatar', this.imagenTemp)
+        .borrarImagenTemp(this.usuarioPerfil._id, 'avatar', this.imagenTemp)
         .subscribe(
           (resp) => {},
           (err) => {
@@ -64,6 +53,37 @@ export class OpcionesComponent implements OnInit, OnDestroy {
           }
         );
     }
+  }
+
+  cargarUsuario(id: string) {
+    this.usuariosService.getUsuario(id).subscribe(
+      (usuario) => {
+        this.usuarioPerfil = usuario;
+
+        this.opcionesForm = this.fb.group({
+          nombre: [
+            this.usuarioPerfil.nombre,
+            [
+              Validators.required,
+              Validators.pattern(/^([A-Z]|[a-z])+$/),
+              Validators.minLength(3),
+              Validators.maxLength(30),
+            ],
+          ],
+          email: [
+            this.usuarioPerfil.email,
+            [
+              Validators.required,
+              Validators.minLength(6),
+              Validators.maxLength(100),
+            ],
+          ],
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   }
 
   openSnackBar(message: string, action: string) {
@@ -78,7 +98,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
     }
 
     this.fileUploadService
-      .subirImagen(input.files[0], 'avatar')
+      .subirImagen(this.usuarioPerfil._id, input.files[0], 'avatar')
       ?.subscribe((resp) => {
         this.imagenTemp = resp;
       });
@@ -91,20 +111,28 @@ export class OpcionesComponent implements OnInit, OnDestroy {
 
     const body = this.opcionesForm.value;
 
-    body.role = this.usuario.role;
+    body.role = this.usuarioPerfil.role;
 
     if (this.imagenTemp) {
       body.avatar = this.imagenTemp;
     }
 
-    this.usuariosService.actualizarUsuario(body).subscribe(
+    this.usuariosService.actualizarUsuario(this.userId, body).subscribe(
       (resp: any) => {
-        this.usuario.nombre = body.nombre;
-        this.usuario.email = body.email;
-        if (body.avatar) {
-          this.imagenSaved = true;
-          this.usuario.avatar = body.avatar;
+        if (this.userId === this.usuario._id) {
+          this.usuario.nombre = body.nombre;
+          this.usuario.email = body.email;
+
+          if (body.avatar) {
+            this.usuario.avatar = body.avatar;
+            this.imagenSaved = true;
+          }
+        } else {
+          if (body.avatar) {
+            this.imagenSaved = true;
+          }
         }
+
         this.openSnackBar(resp.mensaje, 'Aceptar');
       },
       (err) => {

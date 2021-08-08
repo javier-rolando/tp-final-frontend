@@ -61,7 +61,7 @@
               <span>Mi perfil</span>
             </button>
           </a>
-          <a routerLink="opciones" id="link">
+          <a [routerLink]="['perfil', usuario._id, 'opciones']" id="link">
             <button mat-menu-item>
               <mat-icon>settings</mat-icon>
               <span>Opciones</span>
