@@ -18,4 +18,8 @@ export class PasswordService {
   cambiarPass(formData: any, token: string) {
     return this.http.put(`${base_url}/users/reset?token=${token}`, formData);
   }
+
+  compararPass(id: string, password: string) {
+    return this.http.post(`${base_url}/users/${id}/password`, { password });
+  }
 }

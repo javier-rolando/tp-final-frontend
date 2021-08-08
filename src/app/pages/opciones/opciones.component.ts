@@ -181,6 +181,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
   abrirDialog() {
     this.dialog.open(ChangePassComponent, {
       width: '400px',
+      data: { userId: this.userId },
     });
   }
 }

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {
   AbstractControl,
   AbstractControlOptions,
   FormBuilder,
+  FormControl,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PasswordService } from 'src/app/services/password.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -19,11 +21,14 @@ export class ChangePassComponent implements OnInit {
   public hide: boolean = true;
   public hide2: boolean = true;
   public hide3: boolean = true;
+  private cambiarPassDebounce: any;
 
   constructor(
     public dialogRef: MatDialogRef<ChangePassComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
+    private passwordService: PasswordService,
     private _snackBar: MatSnackBar
   ) {}
 
@@ -42,6 +47,7 @@ export class ChangePassComponent implements OnInit {
           Validators.minLength(6),
           Validators.maxLength(100),
         ],
+        [this.oldPassDistinta.bind(this)],
       ],
       newPass: [
         '',
@@ -104,6 +110,10 @@ export class ChangePassComponent implements OnInit {
           this.changePasswordForm.get('oldPass')?.hasError('maxlength')
         ) {
           return 'La vieja contraseña no debe tener más de 100 caracteres';
+        } else if (
+          this.changePasswordForm.get('oldPass')?.hasError('passDistinta')
+        ) {
+          return 'La vieja contraseña es incorrecta';
         }
         break;
       case 'newPass':
@@ -148,6 +158,25 @@ export class ChangePassComponent implements OnInit {
         return pass2Control?.setErrors({ noEsIgual: true });
       }
     };
+  }
+
+  oldPassDistinta(control: FormControl) {
+    clearTimeout(this.cambiarPassDebounce);
+    const q = new Promise((resolve, reject) => {
+      this.cambiarPassDebounce = setTimeout(() => {
+        if (control.value.length > 5) {
+          this.passwordService
+            .compararPass(this.data.userId, control.value)
+            .subscribe((resp: any) => {
+              if (resp.mensaje === 'La contraseña es incorrecta') {
+                resolve({ passDistinta: true });
+              }
+              resolve(null);
+            });
+        }
+      }, 1000);
+    });
+    return q;
   }
 
   onNoClick(): void {

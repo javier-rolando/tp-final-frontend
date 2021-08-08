@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasswordService } from 'src/app/services/password.service';
 import { Title } from '@angular/platform-browser';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-email-recuperar-pass',
@@ -14,7 +15,8 @@ export class EmailRecuperarPassComponent implements OnInit {
     private titleService: Title,
     private fb: FormBuilder,
     private passwordService: PasswordService,
-    private router: Router
+    private router: Router,
+    private _snackBar: MatSnackBar
   ) {
     this.titleService.setTitle('Postinger! | Recuperar contraseña');
   }
@@ -33,18 +35,22 @@ export class EmailRecuperarPassComponent implements OnInit {
     ],
   });
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, { duration: 5000 });
+  }
+
   enviarEmail() {
     if (this.emailToSendResetForm.invalid) {
       return;
     }
 
     this.passwordService.enviarEmail(this.emailToSendResetForm.value).subscribe(
-      (resp) => {
-        console.log(resp);
+      (resp: any) => {
+        this.openSnackBar(resp.mensaje, 'Aceptar');
         this.router.navigateByUrl('/recuperar-pass-email');
       },
       (err) => {
-        console.log(err);
+        this.openSnackBar(err.error.mensaje, 'Aceptar');
       }
     );
   }

@@ -3,6 +3,7 @@ import {
   AbstractControl,
   AbstractControlOptions,
   FormBuilder,
+  FormControl,
   ValidationErrors,
   Validators,
 } from '@angular/forms';
@@ -19,6 +20,7 @@ import { Title } from '@angular/platform-browser';
 export class RegisterComponent implements OnInit {
   public hide: boolean = true;
   public hide2: boolean = true;
+  private emailYaExisteDebounce: any;
 
   constructor(
     private titleService: Title,
@@ -51,6 +53,7 @@ export class RegisterComponent implements OnInit {
           Validators.minLength(6),
           Validators.maxLength(100),
         ],
+        [this.emailYaExiste.bind(this)],
       ],
       password: [
         '',
@@ -126,6 +129,8 @@ export class RegisterComponent implements OnInit {
           return 'El email debe tener al menos 6 caracteres';
         } else if (this.registerForm.get('email')?.hasError('maxlength')) {
           return 'El email no debe tener más de 100 caracteres';
+        } else if (this.registerForm.get('email')?.hasError('yaExiste')) {
+          return 'El email ya existe';
         }
         break;
       case 'password':
@@ -150,10 +155,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  passwordsIguales(
-    pass1Name: string,
-    pass2Name: string
-  ): ValidationErrors | null {
+  passwordsIguales(pass1Name: string, pass2Name: string): ValidationErrors {
     return (controls: AbstractControl) => {
       const pass1Control = controls.get(pass1Name);
       const pass2Control = controls.get(pass2Name);
@@ -164,5 +166,22 @@ export class RegisterComponent implements OnInit {
         return pass2Control?.setErrors({ noEsIgual: true });
       }
     };
+  }
+
+  emailYaExiste(control: FormControl) {
+    clearTimeout(this.emailYaExisteDebounce);
+    const q = new Promise((resolve, reject) => {
+      this.emailYaExisteDebounce = setTimeout(() => {
+        this.usuariosService.getUsuarios().subscribe((resp) => {
+          resp.usuarios.map((usuario) => {
+            if (control.value === usuario.email) {
+              resolve({ yaExiste: true });
+            }
+          });
+          resolve(null);
+        });
+      }, 1000);
+    });
+    return q;
   }
 }
