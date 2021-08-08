@@ -75,6 +75,12 @@
       <input type="file" id="file" (change)="subirImagen($event)" #input />
     </div>
   </form>
+  <mat-divider class="margin"></mat-divider>
+  <div class="centrado">
+    <button type="button" mat-button class="borrar" (click)="borrarPost()">
+      Eliminar Post
+    </button>
+  </div>
   <h2
     class="denied"
     *ngIf="usuarioID !== post.usuario._id && usuarioRole !== 'ADMIN_ROLE'"

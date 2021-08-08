@@ -4,7 +4,7 @@
 }
 
 .form {
-  margin: 10px;
+  margin: 10px 0 30px 0;
   display: flex;
 }
 
@@ -57,4 +57,17 @@
   font-size: 4rem;
   text-align: center;
   margin-top: 20px;
+}
+
+.centrado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.borrar {
+  font-size: 4rem;
+  padding: 10px 20px;
+  margin-top: 20px;
+  color: red;
 }

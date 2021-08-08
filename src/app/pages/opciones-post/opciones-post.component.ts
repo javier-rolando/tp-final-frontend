@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
 import { Post } from 'src/app/models/post.model';
-import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostsService } from 'src/app/services/posts.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -36,6 +37,8 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
     private fileUploadService: FileUploadService,
     private activatedRoute: ActivatedRoute,
     private titleService: Title,
+    private router: Router,
+    private dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) {
     this.titleService.setTitle('Postinger! | Opciones del post');
@@ -145,6 +148,27 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
         console.log(err);
       }
     );
+  }
+
+  borrarPost() {
+    const dialogRef = this.dialog.open(BorrarDialogComponent, {
+      width: '400px',
+      data: { toDelete: 'post' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.postsService.borrarPost(this.postId).subscribe(
+          (resp: any) => {
+            this.router.navigateByUrl('/');
+            this.openSnackBar(resp.mensaje, 'Aceptar');
+          },
+          (err) => {
+            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          }
+        );
+      }
+    });
   }
 
   campoNoValido(campo: string): boolean {
