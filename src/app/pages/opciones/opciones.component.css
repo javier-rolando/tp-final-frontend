@@ -30,11 +30,6 @@
   width: 100%;
 }
 
-.link {
-  text-decoration: none;
-  color: #3f51b5;
-}
-
 .avatar {
   display: flex;
   flex-direction: column;

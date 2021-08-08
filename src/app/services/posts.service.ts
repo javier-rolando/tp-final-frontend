@@ -50,6 +50,10 @@ export class PostsService {
       .pipe(map((resp: RespPosts) => resp.posts));
   }
 
+  actualizarPost(id: string, formData: any) {
+    return this.http.put(`${base_url}/posts/${id}`, formData);
+  }
+
   borrarPost(id: string) {
     return this.http.delete(`${base_url}/posts/${id}`);
   }

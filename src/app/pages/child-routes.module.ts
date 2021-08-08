@@ -6,6 +6,7 @@ import { PostsComponent } from './admin/posts/posts.component';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { HomeComponent } from './home/home.component';
+import { OpcionesPostComponent } from './opciones-post/opciones-post.component';
 import { OpcionesComponent } from './opciones/opciones.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { VerPostComponent } from './ver-post/ver-post.component';
@@ -13,6 +14,7 @@ import { VerPostComponent } from './ver-post/ver-post.component';
 const childRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'post/:id', component: VerPostComponent },
+  { path: 'post/:id/opciones', component: OpcionesPostComponent },
   { path: 'perfil/:id', component: PerfilComponent },
   { path: 'opciones', component: OpcionesComponent },
   { path: 'crear', component: CreatePostComponent },

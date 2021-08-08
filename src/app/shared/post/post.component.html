@@ -1,11 +1,11 @@
-<mat-card class="example-card">
+<mat-card class="card">
   <mat-card-header>
     <div
       [style.background-image]="
         'url(' + (post.usuario.avatar | imagen: post.usuario._id:'avatar') + ')'
       "
       mat-card-avatar
-      class="example-header-image cursor"
+      class="header-image cursor"
       [routerLink]="['/perfil', post.usuario._id]"
     ></div>
     <mat-card-title>{{ post.titulo }}</mat-card-title>
@@ -15,8 +15,22 @@
       }}</span>
       en {{ post.categoria }}</mat-card-subtitle
     >
+    <div class="opciones" *ngIf="usuario._id === post.usuario._id">
+      <button
+        mat-mini-fab
+        color="primary"
+        [routerLink]="['/post', post._id, 'opciones']"
+      >
+        <mat-icon>settings</mat-icon>
+      </button>
+    </div>
   </mat-card-header>
-  <img mat-card-image [src]="post.imagen | imagen: post.usuario._id:'post'" />
+  <img
+    mat-card-image
+    [src]="post.imagen | imagen: post.usuario._id:'post'"
+    [routerLink]="['/post', post._id]"
+    [ngClass]="url.includes('post') ? '' : 'cursor'"
+  />
   <mat-card-content>
     <p>
       {{ post.contenido }}

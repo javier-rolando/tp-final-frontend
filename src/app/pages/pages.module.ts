@@ -18,6 +18,7 @@ import { ComponentsModule } from '../components/components.module';
 import { UsuariosComponent } from './admin/usuarios/usuarios.component';
 import { PostsComponent } from './admin/posts/posts.component';
 import { AdminComponent } from './admin/admin.component';
+import { OpcionesPostComponent } from './opciones-post/opciones-post.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AdminComponent } from './admin/admin.component';
     UsuariosComponent,
     PostsComponent,
     AdminComponent,
+    OpcionesPostComponent,
   ],
   imports: [
     CommonModule,
