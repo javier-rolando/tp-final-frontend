@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChangePassComponent } from 'src/app/components/change-pass/change-pass.component';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -28,6 +28,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
     private usuariosService: UsuariosService,
     private fileUploadService: FileUploadService,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     public dialog: MatDialog,
     private _snackBar: MatSnackBar
   ) {
@@ -81,7 +82,11 @@ export class OpcionesComponent implements OnInit, OnDestroy {
         });
       },
       (err) => {
-        console.log(err);
+        if (err.status === 404) {
+          this.router.navigateByUrl('notfound', { skipLocationChange: true });
+        } else {
+          console.log(err);
+        }
       }
     );
   }

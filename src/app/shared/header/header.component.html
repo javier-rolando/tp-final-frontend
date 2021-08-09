@@ -16,13 +16,13 @@
           Admin
         </button>
         <mat-menu #admin="matMenu">
-          <a [routerLink]="['admin', 'usuarios']" id="link">
+          <a [routerLink]="['/admin', 'usuarios']" id="link">
             <button mat-menu-item>
               <mat-icon>person</mat-icon>
               <span>Usuarios</span>
             </button>
           </a>
-          <a [routerLink]="['admin', 'posts']" id="link">
+          <a [routerLink]="['/admin', 'posts']" id="link">
             <button mat-menu-item>
               <mat-icon>image</mat-icon>
               <span>Posts</span>
@@ -32,7 +32,7 @@
       </li>
       <li class="navigation-item">
         <button
-          routerLink="crear"
+          routerLink="/crear"
           mat-icon-button
           aria-label="Example icon button with a menu icon"
         >
@@ -40,7 +40,7 @@
         </button>
       </li>
       <li class="navigation-item">
-        <a [routerLink]="['perfil', usuario._id]" class="link">{{
+        <a [routerLink]="['/perfil', usuario._id]" class="link">{{
           usuario.nombre
         }}</a>
       </li>
@@ -55,13 +55,13 @@
           class="example-header-image"
         ></div>
         <mat-menu #menu="matMenu">
-          <a [routerLink]="['perfil', usuario._id]" id="link">
+          <a [routerLink]="['/perfil', usuario._id]" id="link">
             <button mat-menu-item>
               <mat-icon>account_circle</mat-icon>
               <span>Mi perfil</span>
             </button>
           </a>
-          <a [routerLink]="['perfil', usuario._id, 'opciones']" id="link">
+          <a [routerLink]="['/perfil', usuario._id, 'opciones']" id="link">
             <button mat-menu-item>
               <mat-icon>settings</mat-icon>
               <span>Opciones</span>

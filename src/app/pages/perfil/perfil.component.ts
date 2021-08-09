@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { PostsService } from 'src/app/services/posts.service';
@@ -19,7 +19,8 @@ export class PerfilComponent implements OnInit {
     private titleService: Title,
     private usuariosService: UsuariosService,
     private postsService: PostsService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -38,7 +39,11 @@ export class PerfilComponent implements OnInit {
         );
       },
       (err) => {
-        console.log(err);
+        if (err.status === 404) {
+          this.router.navigateByUrl('notfound', { skipLocationChange: true });
+        } else {
+          console.log(err);
+        }
       }
     );
   }

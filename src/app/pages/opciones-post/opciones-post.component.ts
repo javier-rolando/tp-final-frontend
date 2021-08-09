@@ -103,7 +103,11 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
         });
       },
       (err) => {
-        console.log(err);
+        if (err.status === 404) {
+          this.router.navigateByUrl('notfound', { skipLocationChange: true });
+        } else {
+          console.log(err);
+        }
       }
     );
   }

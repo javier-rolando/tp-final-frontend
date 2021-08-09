@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from 'src/app/models/post.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { PostsService } from 'src/app/services/posts.service';
@@ -19,7 +19,8 @@ export class VerPostComponent implements OnInit {
     private titleService: Title,
     private usuariosService: UsuariosService,
     private activatedRoute: ActivatedRoute,
-    private postsService: PostsService
+    private postsService: PostsService,
+    private router: Router
   ) {
     this.usuario = usuariosService.usuario;
   }
@@ -35,7 +36,11 @@ export class VerPostComponent implements OnInit {
         this.titleService.setTitle(`Postinger! | ${this.post.titulo}`);
       },
       (err) => {
-        console.log(err);
+        if (err.status === 404) {
+          this.router.navigateByUrl('notfound', { skipLocationChange: true });
+        } else {
+          console.log(err);
+        }
       }
     );
   }
