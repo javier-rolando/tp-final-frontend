@@ -1,25 +1,29 @@
 .container {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.form {
+  margin: 10px 0 30px 0;
   display: flex;
 }
 
-.width {
+.create {
   width: 50%;
   margin: 0 15px;
-}
-
-.create {
   padding: 15px;
-  margin: 20px auto;
   text-align: center;
   background-color: #f0f0f0;
   border-radius: 5px;
   box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: flex-start;
+}
+
+.start {
+  align-self: flex-start;
 }
 
 .ancho {
@@ -31,18 +35,23 @@
 }
 
 .marginb {
-  margin: 10px 0;
+  margin-top: 15px;
 }
 
 .avatar {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .imagen {
   width: 100%;
+}
+
+.preview {
+  font-weight: 400;
+  align-self: center;
 }
 
 #file {

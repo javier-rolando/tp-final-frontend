@@ -38,7 +38,9 @@ export class CreatePostComponent implements OnInit, OnDestroy {
     this.titleService.setTitle('Postinger! | Crear post');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    window.onbeforeunload = () => this.ngOnDestroy();
+  }
 
   ngOnDestroy(): void {
     if (this.imagenTemp && !this.imagenSaved)
@@ -86,7 +88,6 @@ export class CreatePostComponent implements OnInit, OnDestroy {
 
     this.imagenExists = true;
 
-    // this.imagenSubir = input.files[0];
     this.fileUploadService
       .subirImagen(this.usuario._id, input.files[0], 'post')
       ?.subscribe(

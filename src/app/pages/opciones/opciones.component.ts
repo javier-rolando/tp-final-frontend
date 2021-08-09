@@ -42,6 +42,8 @@ export class OpcionesComponent implements OnInit, OnDestroy {
       this.userId = id;
       this.cargarUsuario(id);
     });
+
+    window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {

@@ -51,6 +51,8 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
       this.postId = id;
       this.cargarPost(id);
     });
+
+    window.onbeforeunload = () => this.ngOnDestroy();
   }
 
   ngOnDestroy(): void {

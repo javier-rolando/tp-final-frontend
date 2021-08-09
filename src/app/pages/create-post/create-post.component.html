@@ -1,11 +1,11 @@
 <main class="container">
   <form
     autocomplete="off"
-    class="width"
+    class="form"
     [formGroup]="createPostForm"
     (ngSubmit)="crearPost()"
   >
-    <div class="create">
+    <div class="create start">
       <h1>Crear post</h1>
       <mat-form-field class="ancho" appearance="outline">
         <mat-label>Título</mat-label>
@@ -14,17 +14,6 @@
           getMensajeError("titulo")
         }}</mat-error>
       </mat-form-field>
-      <button
-        type="button"
-        class="ancho marginb"
-        mat-raised-button
-        mat-button
-        color="primary"
-        (click)="input.click()"
-      >
-        Seleccioná una imagen
-      </button>
-      <input type="file" id="file" (change)="subirImagen($event)" #input />
       <mat-form-field class="ancho margin" appearance="outline">
         <mat-label>Contenido</mat-label>
         <textarea
@@ -60,13 +49,25 @@
         Crear
       </button>
     </div>
+    <div class="create avatar">
+      <div *ngIf="!imagenTemp"></div>
+      <h2 class="preview">Vista previa de la imagen</h2>
+      <img
+        *ngIf="imagenTemp"
+        [src]="imagenTemp | imagen: usuario._id:'temp':'post'"
+        class="imagen"
+      />
+      <button
+        type="button"
+        class="ancho marginb"
+        mat-raised-button
+        mat-button
+        color="primary"
+        (click)="input.click()"
+      >
+        Seleccioná una imagen
+      </button>
+      <input type="file" id="file" (change)="subirImagen($event)" #input />
+    </div>
   </form>
-  <div class="create avatar width">
-    <h1>Vista previa de la imagen</h1>
-    <img
-      *ngIf="imagenTemp"
-      [src]="imagenTemp | imagen: usuario._id:'temp':'post'"
-      class="imagen"
-    />
-  </div>
 </main>

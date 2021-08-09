@@ -12,7 +12,13 @@
   <div class="nav">
     <ul class="navigation-items">
       <li class="navigation-item" *ngIf="usuario.role === 'ADMIN_ROLE'">
-        <button mat-flat-button color="accent" [matMenuTriggerFor]="admin">
+        <button
+          mat-flat-button
+          color="secondary"
+          [matMenuTriggerFor]="admin"
+          class="admin"
+        >
+          <mat-icon>admin_panel_settings</mat-icon>
           Admin
         </button>
         <mat-menu #admin="matMenu">
@@ -31,12 +37,9 @@
         </mat-menu>
       </li>
       <li class="navigation-item">
-        <button
-          routerLink="/crear"
-          mat-icon-button
-          aria-label="Example icon button with a menu icon"
-        >
+        <button mat-flat-button color="secondary" routerLink="/crear">
           <mat-icon>add</mat-icon>
+          Crear Post
         </button>
       </li>
       <li class="navigation-item">
