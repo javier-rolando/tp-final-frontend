@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
 import { ChangePassComponent } from 'src/app/components/change-pass/change-pass.component';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -83,7 +84,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
       },
       (err) => {
         if (err.status === 404) {
-          this.router.navigateByUrl('notfound', { skipLocationChange: true });
+          this.router.navigateByUrl('/notfound', { skipLocationChange: true });
         } else {
           console.log(err);
         }
@@ -114,36 +115,48 @@ export class OpcionesComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const body = this.opcionesForm.value;
+    const dialogRef = this.dialog.open(BorrarDialogComponent, {
+      width: '500px',
+      data: {
+        action: 'actualizar',
+        target: 'perfil',
+      },
+    });
 
-    body.role = this.usuarioPerfil.role;
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const body = this.opcionesForm.value;
 
-    if (this.imagenTemp) {
-      body.avatar = this.imagenTemp;
-    }
+        body.role = this.usuarioPerfil.role;
 
-    this.usuariosService.actualizarUsuario(this.userId, body).subscribe(
-      (resp: any) => {
-        if (this.userId === this.usuario._id) {
-          this.usuario.nombre = body.nombre;
-          this.usuario.email = body.email;
-
-          if (body.avatar) {
-            this.usuario.avatar = body.avatar;
-            this.imagenSaved = true;
-          }
-        } else {
-          if (body.avatar) {
-            this.imagenSaved = true;
-          }
+        if (this.imagenTemp) {
+          body.avatar = this.imagenTemp;
         }
 
-        this.openSnackBar(resp.mensaje, 'Aceptar');
-      },
-      (err) => {
-        this.openSnackBar(err.error.mensaje, 'Aceptar');
+        this.usuariosService.actualizarUsuario(this.userId, body).subscribe(
+          (resp: any) => {
+            if (this.userId === this.usuario._id) {
+              this.usuario.nombre = body.nombre;
+              this.usuario.email = body.email;
+
+              if (body.avatar) {
+                this.usuario.avatar = body.avatar;
+                this.imagenSaved = true;
+              }
+            } else {
+              if (body.avatar) {
+                this.imagenSaved = true;
+              }
+            }
+
+            this.openSnackBar(resp.mensaje, 'Aceptar');
+          },
+          (err) => {
+            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          }
+        );
       }
-    );
+    });
   }
 
   campoNoValido(campo: string): boolean {

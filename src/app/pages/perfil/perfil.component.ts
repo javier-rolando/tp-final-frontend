@@ -40,7 +40,7 @@ export class PerfilComponent implements OnInit {
       },
       (err) => {
         if (err.status === 404) {
-          this.router.navigateByUrl('notfound', { skipLocationChange: true });
+          this.router.navigateByUrl('/notfound', { skipLocationChange: true });
         } else {
           console.log(err);
         }

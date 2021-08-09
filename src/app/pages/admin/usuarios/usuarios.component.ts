@@ -116,8 +116,8 @@ export class UsuariosComponent implements OnInit {
     }
 
     const dialogRef = this.dialog.open(BorrarDialogComponent, {
-      width: '400px',
-      data: { toDelete: 'usuario' },
+      width: '500px',
+      data: { action: 'borrar', target: 'usuario' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

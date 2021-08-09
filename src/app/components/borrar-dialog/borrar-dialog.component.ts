@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Usuario } from 'src/app/models/usuario.model';
+import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
   selector: 'app-borrar-dialog',
@@ -7,10 +9,15 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./borrar-dialog.component.css'],
 })
 export class BorrarDialogComponent implements OnInit {
+  public usuario: Usuario;
+
   constructor(
     public dialogRef: MatDialogRef<BorrarDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private usuariosService: UsuariosService
+  ) {
+    this.usuario = usuariosService.usuario;
+  }
 
   ngOnInit(): void {}
 

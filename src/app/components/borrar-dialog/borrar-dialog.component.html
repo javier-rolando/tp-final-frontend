@@ -1,4 +1,7 @@
-<h2>¿Seguro que deseas borrar el {{ data.toDelete }}?</h2>
+<h2>¿Seguro de que deseas {{ data.action }} el {{ data.target }}?</h2>
+<small *ngIf="data.info && usuario.role !== 'ADMIN_ROLE'">{{
+  data.info
+}}</small>
 <div mat-dialog-actions class="actions">
   <button mat-button (click)="onNoClick()">Cancelar</button>
   <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Aceptar</button>

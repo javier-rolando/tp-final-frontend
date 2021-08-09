@@ -71,8 +71,8 @@ export class PostsComponent implements OnInit {
 
   borrarPost(id: string) {
     const dialogRef = this.dialog.open(BorrarDialogComponent, {
-      width: '400px',
-      data: { toDelete: 'post' },
+      width: '500px',
+      data: { action: 'borrar', target: 'post' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

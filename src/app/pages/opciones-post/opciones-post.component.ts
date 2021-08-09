@@ -104,7 +104,7 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
       },
       (err) => {
         if (err.status === 404) {
-          this.router.navigateByUrl('notfound', { skipLocationChange: true });
+          this.router.navigateByUrl('/notfound', { skipLocationChange: true });
         } else {
           console.log(err);
         }
@@ -135,29 +135,42 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const body = this.opcionesPostForm.value;
-
-    if (this.imagenTemp) {
-      body.imagen = this.imagenTemp;
-    }
-
-    this.postsService.actualizarPost(this.postId, body).subscribe(
-      (resp: any) => {
-        if (body.imagen) {
-          this.imagenSaved = true;
-        }
-        this.openSnackBar(resp.mensaje, 'Aceptar');
+    const dialogRef = this.dialog.open(BorrarDialogComponent, {
+      width: '500px',
+      data: {
+        action: 'actualizar',
+        target: 'post',
+        info: 'Si editas el post se borrarán todos los likes y dislikes',
       },
-      (err) => {
-        console.log(err);
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const body = this.opcionesPostForm.value;
+
+        if (this.imagenTemp) {
+          body.imagen = this.imagenTemp;
+        }
+
+        this.postsService.actualizarPost(this.postId, body).subscribe(
+          (resp: any) => {
+            if (body.imagen) {
+              this.imagenSaved = true;
+            }
+            this.openSnackBar(resp.mensaje, 'Aceptar');
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
       }
-    );
+    });
   }
 
   borrarPost() {
     const dialogRef = this.dialog.open(BorrarDialogComponent, {
-      width: '400px',
-      data: { toDelete: 'post' },
+      width: '500px',
+      data: { action: 'borrar', target: 'post' },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
