@@ -27,6 +27,7 @@
         mat-button
         class="contra margin"
         (click)="abrirDialog()"
+        *ngIf="userId === usuario._id"
       >
         Cambiar contraseña
       </button>
