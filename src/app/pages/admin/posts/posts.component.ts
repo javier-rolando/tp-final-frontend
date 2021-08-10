@@ -19,7 +19,6 @@ export class PostsComponent implements OnInit {
   public dataSource: MatTableDataSource<Post>;
   public resultsLength = 0;
   public isLoadingResults = true;
-  public isRateLimitReached = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(

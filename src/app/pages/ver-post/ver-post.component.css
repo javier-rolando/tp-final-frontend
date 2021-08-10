@@ -9,3 +9,10 @@
 .post {
   margin-top: 20px;
 }
+
+.example-loading-shade {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

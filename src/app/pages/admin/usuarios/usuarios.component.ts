@@ -25,7 +25,6 @@ export class UsuariosComponent implements OnInit {
   public dataSource: MatTableDataSource<Usuario>;
   public resultsLength = 0;
   public isLoadingResults = true;
-  public isRateLimitReached = false;
   private usuario: Usuario;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

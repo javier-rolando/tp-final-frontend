@@ -1,4 +1,9 @@
-<main class="container" *ngIf="usuarioPerfil">
+<main class="container" *ngIf="cargando">
+  <div class="example-loading-shade" *ngIf="cargando">
+    <mat-spinner *ngIf="cargando"></mat-spinner>
+  </div>
+</main>
+<main class="container" *ngIf="usuarioPerfil && !cargando">
   <form
     autocomplete="off"
     class="form"

@@ -16,6 +16,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class VerPostComponent implements OnInit {
   public post: Post;
   public usuario: Usuario;
+  public cargando: boolean = true;
 
   constructor(
     private titleService: Title,
@@ -37,10 +38,12 @@ export class VerPostComponent implements OnInit {
   }
 
   cargarPost(id: string) {
+    this.cargando = true;
     this.postsService.cargarPostPorId(id).subscribe(
       (resp) => {
         this.post = resp;
         this.titleService.setTitle(`Postinger! | ${this.post.titulo}`);
+        this.cargando = false;
       },
       (err: ErrorResp) => {
         if (err.status === 404) {
@@ -53,6 +56,7 @@ export class VerPostComponent implements OnInit {
             console.log(err);
           }
         }
+        this.cargando = false;
       }
     );
   }

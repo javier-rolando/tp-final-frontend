@@ -1,5 +1,10 @@
-<main class="container" *ngIf="usuario">
-  <div class="info">
+<main class="container" *ngIf="cargando && cargandoPosts">
+  <div class="example-loading-shade" *ngIf="cargando">
+    <mat-spinner *ngIf="cargando"></mat-spinner>
+  </div>
+</main>
+<main class="container" *ngIf="!cargando && !cargandoPosts">
+  <div class="info" *ngIf="usuario">
     <mat-card style="display: none"></mat-card>
     <div
       [style.background-image]="

@@ -1,3 +1,8 @@
-<main class="container">
+<main class="container" *ngIf="cargando">
+  <div class="example-loading-shade" *ngIf="cargando">
+    <mat-spinner *ngIf="cargando"></mat-spinner>
+  </div>
+</main>
+<main class="container" *ngIf="!cargando">
   <app-post *ngIf="post" [post]="post" class="post"></app-post>
 </main>

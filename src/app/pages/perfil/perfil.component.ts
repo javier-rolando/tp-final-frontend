@@ -16,6 +16,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class PerfilComponent implements OnInit {
   public usuario: Usuario;
   public posts: Post[] = [];
+  public cargando: boolean = true;
+  public cargandoPosts: boolean = true;
 
   constructor(
     private titleService: Title,
@@ -38,12 +40,14 @@ export class PerfilComponent implements OnInit {
   }
 
   cargarUsuario(id: string) {
+    this.cargando = true;
     this.usuariosService.getUsuario(id).subscribe(
       (usuario) => {
         this.usuario = usuario;
         this.titleService.setTitle(
           `Postinger! | Perfil de ${this.usuario.nombre}`
         );
+        this.cargando = false;
       },
       (err: ErrorResp) => {
         if (err.status === 404) {
@@ -56,14 +60,17 @@ export class PerfilComponent implements OnInit {
             console.log(err);
           }
         }
+        this.cargando = false;
       }
     );
   }
 
   cargarPostsPorUsuario(id: string) {
+    this.cargandoPosts = true;
     this.postsService.cargarPostsPorUsuario(id).subscribe(
       (posts) => {
         this.posts = posts;
+        this.cargandoPosts = false;
       },
       (err: ErrorResp) => {
         if (typeof err.error.mensaje === 'string') {
@@ -72,6 +79,7 @@ export class PerfilComponent implements OnInit {
           this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
           console.log(err);
         }
+        this.cargandoPosts = false;
       }
     );
   }

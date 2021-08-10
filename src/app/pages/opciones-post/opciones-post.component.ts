@@ -28,6 +28,7 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
   public usuarioRole: 'ADMIN_ROLE' | 'USER_ROLE';
   public post: Post;
   public imagenTemp: string;
+  public cargando: boolean = true;
   private imagenSaved: boolean = false;
   private postId: string;
 
@@ -79,6 +80,7 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
   ];
 
   cargarPost(id: string) {
+    this.cargando = true;
     this.postsService.cargarPostPorId(id).subscribe(
       (post) => {
         this.post = post;
@@ -104,6 +106,8 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
           ],
           categoria: [this.post.categoria, Validators.required],
         });
+
+        this.cargando = false;
       },
       (err: ErrorResp) => {
         if (err.status === 404) {
@@ -116,6 +120,7 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
             console.log(err);
           }
         }
+        this.cargando = false;
       }
     );
   }

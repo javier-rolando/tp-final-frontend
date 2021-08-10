@@ -31,3 +31,9 @@ table {
   width: 75px;
   margin: 5px 0;
 }
+
+.example-loading-shade {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

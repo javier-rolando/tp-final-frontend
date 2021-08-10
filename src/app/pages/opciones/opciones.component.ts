@@ -22,6 +22,8 @@ export class OpcionesComponent implements OnInit, OnDestroy {
   public opcionesForm: FormGroup;
   public imagenTemp: string;
   public userId: string;
+  public cargando: boolean = true;
+  public cargandoImagen: boolean = false;
   private imagenSaved: boolean = false;
 
   constructor(
@@ -31,8 +33,8 @@ export class OpcionesComponent implements OnInit, OnDestroy {
     private fileUploadService: FileUploadService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    public dialog: MatDialog,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
     this.usuario = usuariosService.usuario;
     this.titleService.setTitle('Postinger! | Opciones');
@@ -61,6 +63,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
   }
 
   cargarUsuario(id: string) {
+    this.cargando = true;
     this.usuariosService.getUsuario(id).subscribe(
       (usuario) => {
         this.usuarioPerfil = usuario;
@@ -84,6 +87,8 @@ export class OpcionesComponent implements OnInit, OnDestroy {
             ],
           ],
         });
+
+        this.cargando = false;
       },
       (err: ErrorResp) => {
         if (err.status === 404) {
@@ -96,6 +101,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
             console.log(err);
           }
         }
+        this.cargando = false;
       }
     );
   }
@@ -111,11 +117,14 @@ export class OpcionesComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.cargandoImagen = true;
+
     this.fileUploadService
       .subirImagen(this.usuarioPerfil._id, input.files[0], 'avatar')
       ?.subscribe(
         (resp) => {
           this.imagenTemp = resp;
+          this.cargandoImagen = false;
         },
         (err: ErrorResp) => {
           if (typeof err.error.mensaje === 'string') {
@@ -124,6 +133,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
             this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
             console.log(err);
           }
+          this.cargandoImagen = false;
         }
       );
   }

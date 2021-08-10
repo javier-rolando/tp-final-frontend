@@ -15,6 +15,8 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
 export class HomeComponent implements OnInit {
   public usuario: Usuario;
   public posts: Post[] = [];
+  public postsFilter: Post[] = [];
+  public cargando: boolean = true;
   private categoriaTemp: string;
 
   constructor(
@@ -36,9 +38,12 @@ export class HomeComponent implements OnInit {
   }
 
   cargarPosts() {
+    this.cargando = true;
     this.postsService.cargarPosts().subscribe(
       (resp: any) => {
         this.posts = resp.posts;
+        this.postsFilter = resp.posts;
+        this.cargando = false;
       },
       (err: ErrorResp) => {
         if (typeof err.error.mensaje === 'string') {
@@ -47,6 +52,7 @@ export class HomeComponent implements OnInit {
           this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
           console.log(err);
         }
+        this.cargando = false;
       }
     );
   }
@@ -56,28 +62,35 @@ export class HomeComponent implements OnInit {
       return;
     }
 
-    if (categoria === 'todas') {
+    if (categoria === 'Todas') {
       this.categoriaTemp = categoria;
-      return this.cargarPosts();
+      this.postsFilter = this.posts;
+      return;
     }
 
-    this.cargarPostsPorCategoria(categoria);
+    // this.cargarPostsPorCategoria(categoria);
+    this.postsFilter = this.posts.filter(
+      (post) => post.categoria === categoria
+    );
     this.categoriaTemp = categoria;
   }
 
-  cargarPostsPorCategoria(categoria: string) {
-    this.postsService.cargarPostsPorCategoria(categoria).subscribe(
-      (posts) => {
-        this.posts = posts;
-      },
-      (err: ErrorResp) => {
-        if (typeof err.error.mensaje === 'string') {
-          this.openSnackBar(err.error.mensaje, 'Aceptar');
-        } else {
-          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
-          console.log(err);
-        }
-      }
-    );
-  }
+  // cargarPostsPorCategoria(categoria: string) {
+  //   this.cargando = true;
+  //   this.postsService.cargarPostsPorCategoria(categoria).subscribe(
+  //     (posts) => {
+  //       this.posts = posts;
+  //       this.cargando = false;
+  //     },
+  //     (err: ErrorResp) => {
+  //       if (typeof err.error.mensaje === 'string') {
+  //         this.openSnackBar(err.error.mensaje, 'Aceptar');
+  //       } else {
+  //         this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+  //         console.log(err);
+  //       }
+  //       this.cargando = false;
+  //     }
+  //   );
+  // }
 }

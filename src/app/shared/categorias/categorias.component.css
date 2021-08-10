@@ -4,7 +4,7 @@
 }
 
 .example-card {
-  max-width: 400px;
+  width: 338px;
   position: sticky;
   top: 79px;
 }
