@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Title } from '@angular/platform-browser';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 
 @Component({
   selector: 'app-login',
@@ -74,8 +75,13 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('/');
         this.openSnackBar(resp.mensaje, 'Aceptar');
       },
-      (err) => {
-        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }

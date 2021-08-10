@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 import { PasswordService } from 'src/app/services/password.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -83,8 +84,13 @@ export class ChangePassComponent implements OnInit {
         this.dialogRef.close();
         this.openSnackBar('Contraseña actualizada', 'Aceptar');
       },
-      (err) => {
-        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }

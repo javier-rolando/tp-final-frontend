@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 
 @Component({
   selector: 'app-confirmation',
@@ -28,8 +29,13 @@ export class ConfirmationComponent implements OnInit {
       (resp: any) => {
         this.openSnackBar(resp.mensaje, 'Aceptar');
       },
-      (err) => {
-        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }

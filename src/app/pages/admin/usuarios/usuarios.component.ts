@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -69,8 +70,13 @@ export class UsuariosComponent implements OnInit {
         this.resultsLength = total;
         this.isLoadingResults = false;
       },
-      (err) => {
-        console.log(err);
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }
@@ -100,9 +106,13 @@ export class UsuariosComponent implements OnInit {
         console.log(resp);
         this.openSnackBar('Role actualizado', 'Aceptar');
       },
-      (err) => {
-        console.log(err);
-        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }
@@ -127,8 +137,13 @@ export class UsuariosComponent implements OnInit {
             this.cargarUsuarios();
             this.openSnackBar(resp.mensaje, 'Aceptar');
           },
-          (err) => {
-            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          (err: ErrorResp) => {
+            if (typeof err.error.mensaje === 'string') {
+              this.openSnackBar(err.error.mensaje, 'Aceptar');
+            } else {
+              this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+              console.log(err);
+            }
           }
         );
       }

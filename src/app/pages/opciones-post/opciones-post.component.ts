@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 import { Post } from 'src/app/models/post.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -104,11 +105,16 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
           categoria: [this.post.categoria, Validators.required],
         });
       },
-      (err) => {
+      (err: ErrorResp) => {
         if (err.status === 404) {
           this.router.navigateByUrl('/notfound', { skipLocationChange: true });
         } else {
-          console.log(err);
+          if (typeof err.error.mensaje === 'string') {
+            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          } else {
+            this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+            console.log(err);
+          }
         }
       }
     );
@@ -127,9 +133,19 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
 
     this.fileUploadService
       .subirImagen(this.post.usuario._id, input.files[0], 'post')
-      ?.subscribe((resp) => {
-        this.imagenTemp = resp;
-      });
+      ?.subscribe(
+        (resp) => {
+          this.imagenTemp = resp;
+        },
+        (err: ErrorResp) => {
+          if (typeof err.error.mensaje === 'string') {
+            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          } else {
+            this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+            console.log(err);
+          }
+        }
+      );
   }
 
   actualizarPost() {
@@ -159,10 +175,16 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
             if (body.imagen) {
               this.imagenSaved = true;
             }
+            this.router.navigate(['/post', this.postId]);
             this.openSnackBar(resp.mensaje, 'Aceptar');
           },
-          (err) => {
-            console.log(err);
+          (err: ErrorResp) => {
+            if (typeof err.error.mensaje === 'string') {
+              this.openSnackBar(err.error.mensaje, 'Aceptar');
+            } else {
+              this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+              console.log(err);
+            }
           }
         );
       }
@@ -182,8 +204,13 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
             this.router.navigateByUrl('/');
             this.openSnackBar(resp.mensaje, 'Aceptar');
           },
-          (err) => {
-            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          (err: ErrorResp) => {
+            if (typeof err.error.mensaje === 'string') {
+              this.openSnackBar(err.error.mensaje, 'Aceptar');
+            } else {
+              this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+              console.log(err);
+            }
           }
         );
       }

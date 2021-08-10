@@ -72,12 +72,22 @@
 
       <ng-container matColumnDef="confirmado">
         <th mat-header-cell *matHeaderCellDef>Confirmado</th>
-        <td mat-cell *matCellDef="let row">{{ row.confirmado }}</td>
+        <td mat-cell *matCellDef="let row">
+          {{ row.confirmado ? "Sí" : "No" }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="acciones">
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row" class="align">
+          <a
+            class="cursor"
+            style="color: green"
+            matTooltip="Editar"
+            [routerLink]="['/perfil', row._id, 'opciones']"
+          >
+            <mat-icon>edit</mat-icon>
+          </a>
           <a
             class="cursor"
             style="color: red"

@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -94,8 +95,13 @@ export class CreatePostComponent implements OnInit, OnDestroy {
         (resp) => {
           this.imagenTemp = resp;
         },
-        (err) => {
-          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        (err: ErrorResp) => {
+          if (typeof err.error.mensaje === 'string') {
+            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          } else {
+            this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+            console.log(err);
+          }
         }
       );
   }
@@ -116,8 +122,13 @@ export class CreatePostComponent implements OnInit, OnDestroy {
         this.openSnackBar('Post creado correctamente', 'Aceptar');
         this.router.navigateByUrl(`/post/${resp.postCreado._id}`);
       },
-      (err) => {
-        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }

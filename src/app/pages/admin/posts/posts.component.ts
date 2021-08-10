@@ -7,6 +7,7 @@ import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-d
 import { Post } from 'src/app/models/post.model';
 import { PostsService } from 'src/app/services/posts.service';
 import { Title } from '@angular/platform-browser';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 
 @Component({
   selector: 'app-posts',
@@ -55,8 +56,13 @@ export class PostsComponent implements OnInit {
         this.resultsLength = total;
         this.isLoadingResults = false;
       },
-      (err) => {
-        console.log(err);
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }
@@ -82,8 +88,13 @@ export class PostsComponent implements OnInit {
             this.cargarPosts();
             this.openSnackBar(resp.mensaje, 'Aceptar');
           },
-          (err) => {
-            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          (err: ErrorResp) => {
+            if (typeof err.error.mensaje === 'string') {
+              this.openSnackBar(err.error.mensaje, 'Aceptar');
+            } else {
+              this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+              console.log(err);
+            }
           }
         );
       }

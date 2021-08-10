@@ -10,6 +10,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PasswordService } from 'src/app/services/password.service';
 import { Title } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 
 @Component({
   selector: 'app-recuperar-pass',
@@ -78,8 +80,13 @@ export class RecuperarPassComponent implements OnInit {
           this.router.navigateByUrl('/login');
           this.openSnackBar('Contraseña actualizada', 'Aceptar');
         },
-        (err) => {
-          console.log(err);
+        (err: ErrorResp) => {
+          if (typeof err.error.mensaje === 'string') {
+            this.openSnackBar(err.error.mensaje, 'Aceptar');
+          } else {
+            this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+            console.log(err);
+          }
         }
       );
   }

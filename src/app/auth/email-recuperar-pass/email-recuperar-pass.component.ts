@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PasswordService } from 'src/app/services/password.service';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 
 @Component({
   selector: 'app-email-recuperar-pass',
@@ -49,8 +50,13 @@ export class EmailRecuperarPassComponent implements OnInit {
         this.openSnackBar(resp.mensaje, 'Aceptar');
         this.router.navigateByUrl('/recuperar-pass-email');
       },
-      (err) => {
-        this.openSnackBar(err.error.mensaje, 'Aceptar');
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }

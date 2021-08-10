@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
+import { ErrorResp } from 'src/app/interfaces/error.interface';
 import { Post } from 'src/app/models/post.model';
 import { Usuario } from 'src/app/models/usuario.model';
 import { PostsService } from 'src/app/services/posts.service';
@@ -18,7 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private titleService: Title,
     private usuariosService: UsuariosService,
-    private postsService: PostsService
+    private postsService: PostsService,
+    private _snackBar: MatSnackBar
   ) {
     this.usuario = usuariosService.usuario;
     this.titleService.setTitle('Postinger! | Home');
@@ -28,10 +31,24 @@ export class HomeComponent implements OnInit {
     this.cargarPosts();
   }
 
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action, { duration: 5000 });
+  }
+
   cargarPosts() {
-    this.postsService.cargarPosts().subscribe((resp: any) => {
-      this.posts = resp.posts;
-    });
+    this.postsService.cargarPosts().subscribe(
+      (resp: any) => {
+        this.posts = resp.posts;
+      },
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
+      }
+    );
   }
 
   recibirCategoria(categoria: string) {
@@ -53,8 +70,13 @@ export class HomeComponent implements OnInit {
       (posts) => {
         this.posts = posts;
       },
-      (err) => {
-        console.log(err);
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
+        }
       }
     );
   }
