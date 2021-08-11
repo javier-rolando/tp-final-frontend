@@ -4,6 +4,7 @@ export interface EmailResetForm {
 
 export interface PassResetForm {
   password: string;
+  password2?: string;
 }
 
 export interface ComparePassForm {

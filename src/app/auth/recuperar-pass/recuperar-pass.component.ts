@@ -75,8 +75,9 @@ export class RecuperarPassComponent implements OnInit {
     }
 
     const body: PassResetForm = this.resetForm.value;
+    const { password2, ...formData } = body;
 
-    this.passwordService.cambiarPass(body, this.token).subscribe(
+    this.passwordService.cambiarPass(formData, this.token).subscribe(
       (resp) => {
         this.router.navigateByUrl('/login');
         this.openSnackBar(resp.mensaje, 'Aceptar');
