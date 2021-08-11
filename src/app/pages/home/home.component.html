@@ -5,13 +5,16 @@
     <mat-spinner *ngIf="cargando"></mat-spinner>
   </div>
   <div class="flex" *ngIf="!cargando">
-    <section *ngIf="postsFilter" class="posts">
+    <section *ngIf="posts" class="posts">
       <app-post *ngFor="let post of postsFilter" [post]="post"></app-post>
     </section>
-    <section *ngIf="postsFilter.length === 0">
-      <p>No hay posts para mostrar.</p>
+    <section
+      *ngIf="posts.length === 0 || postsFilter.length === 0"
+      class="no-posts"
+    >
+      <p class="para">No hay posts para mostrar.</p>
     </section>
-    <section class="categorias">
+    <section class="categorias" *ngIf="posts.length !== 0">
       <app-categorias (categoria)="recibirCategoria($event)"></app-categorias>
     </section>
   </div>

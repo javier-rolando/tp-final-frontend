@@ -29,3 +29,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.no-posts {
+  width: 100%;
+}
+
+.para {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 2.5rem;
+}

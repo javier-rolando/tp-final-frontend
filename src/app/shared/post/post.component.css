@@ -3,10 +3,13 @@ mat-card-content {
 }
 
 .card {
-  max-width: 400px;
+  width: 90%;
   margin-bottom: 20px;
   position: relative;
-  margin-right: 20px;
+}
+
+.smaller {
+  width: 480px;
 }
 
 .header-image {

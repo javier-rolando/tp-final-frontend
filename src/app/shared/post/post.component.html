@@ -1,4 +1,4 @@
-<mat-card class="card">
+<mat-card class="card" [ngClass]="url.includes('post') ? 'smaller' : ''">
   <mat-card-header>
     <div
       [style.background-image]="
