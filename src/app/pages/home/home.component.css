@@ -8,16 +8,16 @@
 .container {
   padding: 10px;
   margin: 0 auto;
-  max-width: 800px;
+  width: 1200px;
 }
 
 .flex {
   display: flex;
   margin-top: 21px;
+  justify-content: center;
 }
 
 .categorias {
-  flex: 1;
   margin: 0 5px 5px 5px;
   width: 338px;
 }
@@ -31,7 +31,7 @@
 }
 
 .no-posts {
-  width: 100%;
+  width: 502px;
 }
 
 .para {

@@ -7,12 +7,12 @@
   <div class="flex" *ngIf="!cargando">
     <section *ngIf="posts" class="posts">
       <app-post *ngFor="let post of postsFilter" [post]="post"></app-post>
-    </section>
-    <section
-      *ngIf="posts.length === 0 || postsFilter.length === 0"
-      class="no-posts"
-    >
-      <p class="para">No hay posts para mostrar.</p>
+      <div
+        *ngIf="posts.length === 0 || postsFilter.length === 0"
+        class="no-posts"
+      >
+        <p class="para">No hay posts para mostrar.</p>
+      </div>
     </section>
     <section class="categorias" *ngIf="posts.length !== 0">
       <app-categorias (categoria)="recibirCategoria($event)"></app-categorias>

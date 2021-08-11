@@ -1,14 +1,16 @@
 mat-card-content {
   margin: 0;
+  word-wrap: break-word;
 }
 
 .card {
-  width: 90%;
+  width: 450px;
   margin-bottom: 20px;
+  margin-right: 20px;
   position: relative;
 }
 
-.smaller {
+.bigger {
   width: 480px;
 }
 
@@ -49,6 +51,11 @@ mat-card-content {
   margin: 0;
   padding: 5px;
   width: 100%;
+}
+
+.link {
+  text-decoration: none;
+  color: #3f51b5;
 }
 
 .opciones {

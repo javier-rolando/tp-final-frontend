@@ -2,10 +2,52 @@
   <a class="link" mat-list-item routerLink="/" (click)="onSidenavClose()">
     <mat-icon>home</mat-icon><span class="nav-caption">Home</span>
   </a>
-  <a class="link" mat-list-item routerLink="/" (click)="onSidenavClose()">
-    <mat-icon>home</mat-icon><span class="nav-caption">Probando</span>
+  <a
+    class="link"
+    mat-list-item
+    routerLink="/admin/usuarios"
+    (click)="onSidenavClose()"
+    *ngIf="usuario.role === 'ADMIN_ROLE'"
+  >
+    <mat-icon>admin_panel_settings</mat-icon
+    ><span class="nav-caption">Usuarios</span>
   </a>
-  <a class="link" mat-list-item routerLink="/" (click)="onSidenavClose()">
-    <mat-icon>home</mat-icon><span class="nav-caption">Probando</span>
+  <a
+    class="link"
+    mat-list-item
+    routerLink="/admin/posts"
+    (click)="onSidenavClose()"
+    *ngIf="usuario.role === 'ADMIN_ROLE'"
+  >
+    <mat-icon>admin_panel_settings</mat-icon
+    ><span class="nav-caption">Posts</span>
+  </a>
+  <a class="link" mat-list-item routerLink="/crear" (click)="onSidenavClose()">
+    <mat-icon>add</mat-icon><span class="nav-caption">Crear post</span>
+  </a>
+  <a
+    class="link"
+    mat-list-item
+    [routerLink]="['/perfil', usuario._id]"
+    (click)="onSidenavClose()"
+  >
+    <mat-icon>account_circle</mat-icon
+    ><span class="nav-caption">Mi perfil</span>
+  </a>
+  <a
+    class="link"
+    mat-list-item
+    [routerLink]="['/perfil', usuario._id, 'opciones']"
+    (click)="onSidenavClose()"
+  >
+    <mat-icon>settings</mat-icon><span class="nav-caption">Opciones</span>
+  </a>
+  <a
+    class="link"
+    mat-list-item
+    routerLink="/login"
+    (click)="closeSidenavAndLogout()"
+  >
+    <mat-icon>logout</mat-icon><span class="nav-caption">Cerrar sesión</span>
   </a>
 </mat-nav-list>

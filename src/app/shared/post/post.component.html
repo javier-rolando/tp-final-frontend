@@ -1,4 +1,4 @@
-<mat-card class="card" [ngClass]="url.includes('post') ? 'smaller' : ''">
+<mat-card class="card" [ngClass]="url.includes('post') ? 'bigger' : ''">
   <mat-card-header>
     <div
       [style.background-image]="
@@ -36,7 +36,17 @@
   />
   <mat-card-content>
     <p>
-      {{ post.contenido }}
+      {{
+        post.contenido.length > 200 && !url.includes("post")
+          ? (post.contenido | slice: 0:200) + "..."
+          : post.contenido
+      }}
+      <a
+        class="link"
+        [routerLink]="['/post', post._id]"
+        *ngIf="post.contenido.length > 200 && !url.includes('post')"
+        >Ver más</a
+      >
     </p>
     <mat-divider></mat-divider>
   </mat-card-content>
