@@ -40,8 +40,8 @@ export class VerPostComponent implements OnInit {
   cargarPost(id: string) {
     this.cargando = true;
     this.postsService.cargarPostPorId(id).subscribe(
-      (resp) => {
-        this.post = resp;
+      (post) => {
+        this.post = post;
         this.titleService.setTitle(`Postinger! | ${this.post.titulo}`);
         this.cargando = false;
       },

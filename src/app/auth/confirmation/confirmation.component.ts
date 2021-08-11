@@ -26,7 +26,7 @@ export class ConfirmationComponent implements OnInit {
 
   enviarEmail() {
     this.usuariosService.resendEmail().subscribe(
-      (resp: any) => {
+      (resp) => {
         this.openSnackBar(resp.mensaje, 'Aceptar');
       },
       (err: ErrorResp) => {

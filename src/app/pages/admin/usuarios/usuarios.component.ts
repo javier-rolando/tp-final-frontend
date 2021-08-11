@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Title } from '@angular/platform-browser';
 import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
+import { CambiarRole } from 'src/app/interfaces/cambiar-role.interface';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -94,7 +95,7 @@ export class UsuariosComponent implements OnInit {
     email: string,
     role: 'ADMIN_ROLE' | 'USER_ROLE'
   ) {
-    const body = {
+    const body: CambiarRole = {
       nombre,
       email,
       role,
@@ -102,7 +103,6 @@ export class UsuariosComponent implements OnInit {
 
     this.usuariosService.cambiarRole(id, body).subscribe(
       (resp) => {
-        console.log(resp);
         this.openSnackBar('Role actualizado', 'Aceptar');
       },
       (err: ErrorResp) => {
@@ -132,7 +132,7 @@ export class UsuariosComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.usuariosService.borrarUsuario(id).subscribe(
-          (resp: any) => {
+          (resp) => {
             this.cargarUsuarios();
             this.openSnackBar(resp.mensaje, 'Aceptar');
           },

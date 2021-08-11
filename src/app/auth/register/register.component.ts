@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Title } from '@angular/platform-browser';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
+import { RegisterForm } from 'src/app/interfaces/register-form.interface';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ import { ErrorResp } from 'src/app/interfaces/error.interface';
 export class RegisterComponent implements OnInit {
   public hide: boolean = true;
   public hide2: boolean = true;
-  private emailYaExisteDebounce: any;
+  private emailYaExisteDebounce: NodeJS.Timeout;
 
   constructor(
     private titleService: Title,
@@ -87,10 +88,11 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    const { password2, ...formData } = this.registerForm.value;
+    const body: RegisterForm = this.registerForm.value;
+    const { password2, ...formData } = body;
 
     this.usuariosService.crearUsuario(formData).subscribe(
-      (resp: any) => {
+      (resp) => {
         sessionStorage.setItem('token', resp.token);
         this.router.navigateByUrl('/confirmation');
       },

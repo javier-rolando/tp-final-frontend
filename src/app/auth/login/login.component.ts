@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Title } from '@angular/platform-browser';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
+import { LoginForm } from 'src/app/interfaces/login-form.interface';
 
 @Component({
   selector: 'app-login',
@@ -62,10 +63,11 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    const { recordarme, ...loginData } = this.loginForm.value;
+    const body: LoginForm = this.loginForm.value;
+    const { recordarme, ...loginData } = body;
 
     this.usuariosService.login(loginData).subscribe(
-      (resp: any) => {
+      (resp) => {
         if (recordarme) {
           localStorage.setItem('token', resp.token);
         } else {

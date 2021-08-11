@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { CreatePostForm } from 'src/app/interfaces/create-post-form.interface';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
@@ -92,8 +93,8 @@ export class CreatePostComponent implements OnInit, OnDestroy {
     this.fileUploadService
       .subirImagen(this.usuario._id, input.files[0], 'post')
       ?.subscribe(
-        (resp) => {
-          this.imagenTemp = resp;
+        (archivo) => {
+          this.imagenTemp = archivo;
         },
         (err: ErrorResp) => {
           if (typeof err.error.mensaje === 'string') {
@@ -116,10 +117,12 @@ export class CreatePostComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.postsService.crearPost(this.createPostForm.value).subscribe(
-      (resp: any) => {
+    const body: CreatePostForm = this.createPostForm.value;
+
+    this.postsService.crearPost(body).subscribe(
+      (resp) => {
         this.imagenSaved = true;
-        this.openSnackBar('Post creado correctamente', 'Aceptar');
+        this.openSnackBar(resp.mensaje, 'Aceptar');
         this.router.navigateByUrl(`/post/${resp.postCreado._id}`);
       },
       (err: ErrorResp) => {

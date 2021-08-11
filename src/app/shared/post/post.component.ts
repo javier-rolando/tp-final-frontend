@@ -36,7 +36,7 @@ export class PostComponent implements OnInit {
 
   likePost(id: string) {
     this.postsService.likePost(id).subscribe(
-      (resp: any) => {
+      (resp) => {
         this.post.likes = resp.likes;
         this.post.dislikes = resp.dislikes;
         this.post.likedBy = resp.likedBy;
@@ -55,7 +55,7 @@ export class PostComponent implements OnInit {
 
   dislikePost(id: string) {
     this.postsService.dislikePost(id).subscribe(
-      (resp: any) => {
+      (resp) => {
         this.post.likes = resp.likes;
         this.post.dislikes = resp.dislikes;
         this.post.likedBy = resp.likedBy;

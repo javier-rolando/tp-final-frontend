@@ -9,8 +9,19 @@ import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { UpdateUserForm } from '../interfaces/update-user-form.interface';
 import { ChangePassForm } from '../interfaces/change-pass-form.interface';
-import { GetUsuario, GetUsuarios } from '../interfaces/get-usuarios.interface';
 import { CambiarRole } from '../interfaces/cambiar-role.interface';
+import {
+  ChangePass,
+  CreateUsuario,
+  DeleteUsuario,
+  GetUsuario,
+  GetUsuarios,
+  Login,
+  RenewToken,
+  ResendEmail,
+  UpdateUsuario,
+  ValidarUsuario,
+} from '../interfaces/resp-usuarios.interface';
 
 const base_url: string = environment.base_url;
 
@@ -33,12 +44,12 @@ export class UsuariosService {
   }
 
   crearUsuario(formData: RegisterForm) {
-    return this.http.post(`${base_url}/users/create`, formData);
+    return this.http.post<CreateUsuario>(`${base_url}/users/create`, formData);
   }
 
   validarUsuario(): Observable<boolean> {
-    return this.http.get(`${base_url}/users`).pipe(
-      map((resp: any) => {
+    return this.http.get<ValidarUsuario>(`${base_url}/users`).pipe(
+      map((resp) => {
         const { nombre, email, role, confirmado, _id, avatar, createdAt } =
           resp.usuario;
 
@@ -104,7 +115,7 @@ export class UsuariosService {
   }
 
   login(formData: LoginForm) {
-    return this.http.post(`${base_url}/users/login`, formData);
+    return this.http.post<Login>(`${base_url}/users/login`, formData);
   }
 
   logout() {
@@ -114,29 +125,29 @@ export class UsuariosService {
   }
 
   renewToken() {
-    return this.http.get(`${base_url}/users/renew`);
+    return this.http.get<RenewToken>(`${base_url}/users/renew`);
   }
 
   resendEmail() {
-    return this.http.get(`${base_url}/users/resend/${this.token}`);
+    return this.http.get<ResendEmail>(`${base_url}/users/resend/${this.token}`);
   }
 
   actualizarUsuario(id: string, formData: UpdateUserForm) {
-    return this.http.put(`${base_url}/users/${id}`, formData);
+    return this.http.put<UpdateUsuario>(`${base_url}/users/${id}`, formData);
   }
 
   cambiarRole(id: string, data: CambiarRole) {
-    return this.http.put(`${base_url}/users/${id}`, data);
+    return this.http.put<UpdateUsuario>(`${base_url}/users/${id}`, data);
   }
 
   cambiarPassword(formData: ChangePassForm) {
-    return this.http.put(
+    return this.http.put<ChangePass>(
       `${base_url}/users/${this.usuario._id}/password`,
       formData
     );
   }
 
   borrarUsuario(id: string) {
-    return this.http.delete(`${base_url}/users/${id}`);
+    return this.http.delete<DeleteUsuario>(`${base_url}/users/${id}`);
   }
 }

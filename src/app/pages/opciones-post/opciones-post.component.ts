@@ -6,6 +6,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
+import { UpdatePostForm } from 'src/app/interfaces/update-post-form.interface';
 import { Post } from 'src/app/models/post.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { PostsService } from 'src/app/services/posts.service';
@@ -139,8 +140,8 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
     this.fileUploadService
       .subirImagen(this.post.usuario._id, input.files[0], 'post')
       ?.subscribe(
-        (resp) => {
-          this.imagenTemp = resp;
+        (archivo) => {
+          this.imagenTemp = archivo;
         },
         (err: ErrorResp) => {
           if (typeof err.error.mensaje === 'string') {
@@ -169,14 +170,14 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const body = this.opcionesPostForm.value;
+        const body: UpdatePostForm = this.opcionesPostForm.value;
 
         if (this.imagenTemp) {
           body.imagen = this.imagenTemp;
         }
 
         this.postsService.actualizarPost(this.postId, body).subscribe(
-          (resp: any) => {
+          (resp) => {
             if (body.imagen) {
               this.imagenSaved = true;
             }
@@ -205,7 +206,7 @@ export class OpcionesPostComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.postsService.borrarPost(this.postId).subscribe(
-          (resp: any) => {
+          (resp) => {
             this.router.navigateByUrl('/');
             this.openSnackBar(resp.mensaje, 'Aceptar');
           },

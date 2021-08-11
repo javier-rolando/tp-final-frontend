@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { DeleteImg, UploadImg } from '../interfaces/resp-uploads.interface';
 
 const base_url = environment.base_url;
 
@@ -18,8 +19,8 @@ export class FileUploadService {
       formData.append('img', archivo);
 
       return this.http
-        .post(url, formData)
-        .pipe(map((resp: any) => resp.archivo));
+        .post<UploadImg>(url, formData)
+        .pipe(map((resp) => resp.archivo));
     } catch (error) {
       console.log(error);
       return;
@@ -27,7 +28,7 @@ export class FileUploadService {
   }
 
   borrarImagenTemp(userId: string, folder: string, nombre: string) {
-    return this.http.delete(
+    return this.http.delete<DeleteImg>(
       `${base_url}/uploads/${userId}/${folder}/${nombre}`
     );
   }

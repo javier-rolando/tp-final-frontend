@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   cargarPosts() {
     this.cargando = true;
     this.postsService.cargarPosts().subscribe(
-      (resp: any) => {
+      (resp) => {
         this.posts = resp.posts;
         this.postsFilter = resp.posts;
         this.cargando = false;

@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BorrarDialogComponent } from 'src/app/components/borrar-dialog/borrar-dialog.component';
 import { ChangePassComponent } from 'src/app/components/change-pass/change-pass.component';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
+import { UpdateUserForm } from 'src/app/interfaces/update-user-form.interface';
 import { Usuario } from 'src/app/models/usuario.model';
 import { FileUploadService } from 'src/app/services/file-upload.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
@@ -122,8 +123,8 @@ export class OpcionesComponent implements OnInit, OnDestroy {
     this.fileUploadService
       .subirImagen(this.usuarioPerfil._id, input.files[0], 'avatar')
       ?.subscribe(
-        (resp) => {
-          this.imagenTemp = resp;
+        (archivo) => {
+          this.imagenTemp = archivo;
           this.cargandoImagen = false;
         },
         (err: ErrorResp) => {
@@ -153,7 +154,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        const body = this.opcionesForm.value;
+        const body: UpdateUserForm = this.opcionesForm.value;
 
         body.role = this.usuarioPerfil.role;
 
@@ -162,7 +163,7 @@ export class OpcionesComponent implements OnInit, OnDestroy {
         }
 
         this.usuariosService.actualizarUsuario(this.userId, body).subscribe(
-          (resp: any) => {
+          (resp) => {
             if (this.userId === this.usuario._id) {
               this.usuario.nombre = body.nombre;
               this.usuario.email = body.email;

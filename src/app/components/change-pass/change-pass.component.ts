@@ -9,7 +9,10 @@ import {
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ChangePassForm } from 'src/app/interfaces/change-pass-form.interface';
+import { ChangePassDialog } from 'src/app/interfaces/data.interface';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
+import { ComparePassForm } from 'src/app/interfaces/password-form.interface';
 import { PasswordService } from 'src/app/services/password.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
@@ -22,11 +25,11 @@ export class ChangePassComponent implements OnInit {
   public hide: boolean = true;
   public hide2: boolean = true;
   public hide3: boolean = true;
-  private cambiarPassDebounce: any;
+  private cambiarPassDebounce: NodeJS.Timeout;
 
   constructor(
     public dialogRef: MatDialogRef<ChangePassComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: ChangePassDialog,
     private fb: FormBuilder,
     private usuariosService: UsuariosService,
     private passwordService: PasswordService,
@@ -77,12 +80,13 @@ export class ChangePassComponent implements OnInit {
       return;
     }
 
-    const { confirmNewPass, ...formData } = this.changePasswordForm.value;
+    const body: ChangePassForm = this.changePasswordForm.value;
+    const { confirmNewPass, ...formData } = body;
 
     this.usuariosService.cambiarPassword(formData).subscribe(
       (resp) => {
         this.dialogRef.close();
-        this.openSnackBar('Contraseña actualizada', 'Aceptar');
+        this.openSnackBar(resp.mensaje, 'Aceptar');
       },
       (err: ErrorResp) => {
         if (typeof err.error.mensaje === 'string') {
@@ -167,13 +171,14 @@ export class ChangePassComponent implements OnInit {
   }
 
   oldPassDistinta(control: FormControl) {
+    const body: ComparePassForm = control.value;
     clearTimeout(this.cambiarPassDebounce);
     const q = new Promise((resolve, reject) => {
       this.cambiarPassDebounce = setTimeout(() => {
-        if (control.value.length > 5) {
+        if (body.password.length > 5) {
           this.passwordService
-            .compararPass(this.data.userId, control.value)
-            .subscribe((resp: any) => {
+            .compararPass(this.data.userId, body)
+            .subscribe((resp) => {
               if (resp.mensaje === 'La contraseña es incorrecta') {
                 resolve({ passDistinta: true });
               }

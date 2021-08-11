@@ -83,7 +83,7 @@ export class PostsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.postsService.borrarPost(id).subscribe(
-          (resp: any) => {
+          (resp) => {
             this.cargarPosts();
             this.openSnackBar(resp.mensaje, 'Aceptar');
           },

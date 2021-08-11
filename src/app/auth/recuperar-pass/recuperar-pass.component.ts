@@ -12,6 +12,7 @@ import { PasswordService } from 'src/app/services/password.service';
 import { Title } from '@angular/platform-browser';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
+import { PassResetForm } from 'src/app/interfaces/password-form.interface';
 
 @Component({
   selector: 'app-recuperar-pass',
@@ -73,22 +74,22 @@ export class RecuperarPassComponent implements OnInit {
       return;
     }
 
-    this.passwordService
-      .cambiarPass(this.resetForm.value, this.token)
-      .subscribe(
-        (resp) => {
-          this.router.navigateByUrl('/login');
-          this.openSnackBar('Contraseña actualizada', 'Aceptar');
-        },
-        (err: ErrorResp) => {
-          if (typeof err.error.mensaje === 'string') {
-            this.openSnackBar(err.error.mensaje, 'Aceptar');
-          } else {
-            this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
-            console.log(err);
-          }
+    const body: PassResetForm = this.resetForm.value;
+
+    this.passwordService.cambiarPass(body, this.token).subscribe(
+      (resp) => {
+        this.router.navigateByUrl('/login');
+        this.openSnackBar(resp.mensaje, 'Aceptar');
+      },
+      (err: ErrorResp) => {
+        if (typeof err.error.mensaje === 'string') {
+          this.openSnackBar(err.error.mensaje, 'Aceptar');
+        } else {
+          this.openSnackBar('Ha ocurrido un error inesperado', 'Aceptar');
+          console.log(err);
         }
-      );
+      }
+    );
   }
 
   passwordsIguales(

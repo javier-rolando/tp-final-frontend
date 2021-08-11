@@ -5,6 +5,7 @@ import { PasswordService } from 'src/app/services/password.service';
 import { Title } from '@angular/platform-browser';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
+import { EmailResetForm } from 'src/app/interfaces/password-form.interface';
 
 @Component({
   selector: 'app-email-recuperar-pass',
@@ -45,8 +46,10 @@ export class EmailRecuperarPassComponent implements OnInit {
       return;
     }
 
-    this.passwordService.enviarEmail(this.emailToSendResetForm.value).subscribe(
-      (resp: any) => {
+    const body: EmailResetForm = this.emailToSendResetForm.value;
+
+    this.passwordService.enviarEmail(body).subscribe(
+      (resp) => {
         this.openSnackBar(resp.mensaje, 'Aceptar');
         this.router.navigateByUrl('/recuperar-pass-email');
       },

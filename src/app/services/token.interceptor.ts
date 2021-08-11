@@ -33,7 +33,7 @@ export class TokenInterceptor implements HttpInterceptor {
       catchError((err: HttpErrorResponse) => {
         if (err.error.mensaje === 'Token incorrecto') {
           return this.usuariosService.renewToken().pipe(
-            concatMap((resp: any) => {
+            concatMap((resp) => {
               console.log('Refresh token');
 
               if (localStorage.getItem('token')) {
