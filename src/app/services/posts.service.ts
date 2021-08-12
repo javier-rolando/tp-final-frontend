@@ -37,9 +37,22 @@ export class PostsService {
     return this.http.get<GetPosts>(`${base_url}/posts`);
   }
 
-  // cargarPostsPorCategoria(categoria: string) {
+  cargarPostsPaginado(ctd: number, pagina: number, categoria?: string) {
+    let url = `${base_url}/posts?ctd=${ctd}&pagina=${pagina}`;
+
+    if (categoria) {
+      url += `&categoria=${categoria}`;
+    }
+
+    console.log(url);
+    return this.http.get<GetPosts>(url);
+  }
+
+  // cargarPostsPorCategoria(ctd: number, pagina: number, categoria: string) {
   //   return this.http
-  //     .get(`${base_url}/posts?categoria=${categoria}`)
+  //     .get(
+  //       `${base_url}/posts?ctd=${ctd}&pagina=${pagina}&categoria=${categoria}`
+  //     )
   //     .pipe(map((resp: any) => resp.posts));
   // }
 

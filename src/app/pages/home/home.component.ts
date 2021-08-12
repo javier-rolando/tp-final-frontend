@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Title } from '@angular/platform-browser';
 import { ErrorResp } from 'src/app/interfaces/error.interface';
@@ -12,12 +12,17 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   public usuario: Usuario;
   public posts: Post[] = [];
-  public postsFilter: Post[] = [];
   public cargando: boolean = true;
-  private categoriaTemp: string;
+  public cargandoNuevos: boolean = false;
+  public noPosts: boolean = true;
+  private total: number;
+  private categoriaTemp: string = 'todas';
+  private pagina: number = 1;
+  private paginaNueva: number = 1;
+  private ctd: number = 5;
 
   constructor(
     private titleService: Title,
@@ -30,20 +35,29 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cargarPosts();
+    this.cargarPosts(this.ctd, this.pagina, '');
+
+    window.addEventListener('scroll', this.scroll, true);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.scroll, true);
   }
 
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, { duration: 5000 });
   }
 
-  cargarPosts() {
+  cargarPosts(ctd: number, pagina: number, categoria: string) {
     this.cargando = true;
-    this.postsService.cargarPosts().subscribe(
+    this.postsService.cargarPostsPaginado(ctd, pagina, categoria).subscribe(
       (resp) => {
         this.posts = resp.posts;
-        this.postsFilter = resp.posts;
+        this.total = resp.total;
         this.cargando = false;
+        if (this.posts.length !== 0) {
+          this.noPosts = false;
+        }
       },
       (err: ErrorResp) => {
         if (typeof err.error.mensaje === 'string') {
@@ -57,27 +71,56 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  cargarPostsNuevos(ctd: number, categoria: string) {
+    if (this.posts.length === this.total) {
+      return;
+    }
+    this.cargandoNuevos = true;
+    this.paginaNueva++;
+    this.postsService
+      .cargarPostsPaginado(ctd, this.paginaNueva, categoria)
+      .subscribe((resp) => {
+        this.posts = this.posts.concat(resp.posts);
+        this.cargandoNuevos = false;
+      });
+  }
+
   recibirCategoria(categoria: string) {
     if (this.categoriaTemp === categoria) {
       return;
     }
 
-    if (categoria === 'Todas') {
+    if (categoria === 'todas') {
       this.categoriaTemp = categoria;
-      this.postsFilter = this.posts;
-      return;
+      return this.cargarPosts(this.ctd, this.pagina, '');
     }
 
-    // this.cargarPostsPorCategoria(categoria);
-    this.postsFilter = this.posts.filter(
-      (post) => post.categoria === categoria
-    );
+    this.paginaNueva = 1;
+
+    this.cargarPosts(this.ctd, this.pagina, categoria);
+    // this.postsFilter = this.posts.filter(
+    //   (post) => post.categoria === categoria
+    // );
     this.categoriaTemp = categoria;
   }
 
+  scroll = (event: any) => {
+    const top = event.srcElement.scrollTop;
+    const height = event.srcElement.scrollHeight;
+    const offset = event.srcElement.offsetHeight;
+
+    if (top > height - offset - 1) {
+      if (this.categoriaTemp !== 'todas') {
+        this.cargarPostsNuevos(this.ctd, this.categoriaTemp);
+        return;
+      }
+      this.cargarPostsNuevos(this.ctd, '');
+    }
+  };
+
   // cargarPostsPorCategoria(categoria: string) {
   //   this.cargando = true;
-  //   this.postsService.cargarPostsPorCategoria(categoria).subscribe(
+  //   this.postsService.cargarPostsPorCategoria(this.ctd, this.pagina, categoria).subscribe(
   //     (posts) => {
   //       this.posts = posts;
   //       this.cargando = false;
