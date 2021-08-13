@@ -18,11 +18,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   public cargando: boolean = true;
   public cargandoNuevos: boolean = false;
   public noPosts: boolean = true;
-  private total: number;
+  private total: number | null;
   private categoriaTemp: string = 'todas';
   private pagina: number = 1;
   private paginaNueva: number = 1;
   private ctd: number = 5;
+
+  private prueba: boolean = true;
 
   constructor(
     private titleService: Title,
@@ -49,6 +51,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   cargarPosts(ctd: number, pagina: number, categoria: string) {
+    if (this.posts.length === this.total) {
+      return;
+    }
     this.cargando = true;
     this.postsService.cargarPostsPaginado(ctd, pagina, categoria).subscribe(
       (resp) => {
@@ -71,17 +76,24 @@ export class HomeComponent implements OnInit, OnDestroy {
     );
   }
 
-  cargarPostsNuevos(ctd: number, categoria: string) {
+  cargarPostsNuevos(ctd: number, pagina: number, categoria: string) {
+    console.log('posts length', this.posts.length);
+    console.log('posts total', this.total);
     if (this.posts.length === this.total) {
       return;
     }
+    if (!this.total) {
+      return;
+    }
     this.cargandoNuevos = true;
-    this.paginaNueva++;
     this.postsService
-      .cargarPostsPaginado(ctd, this.paginaNueva, categoria)
+      .cargarPostsPaginado(ctd, pagina, categoria)
       .subscribe((resp) => {
         this.posts = this.posts.concat(resp.posts);
+        this.total = resp.total;
         this.cargandoNuevos = false;
+        console.log('posts length nuevo', this.posts.length);
+        console.log('total nuevo', this.total);
       });
   }
 
@@ -90,18 +102,20 @@ export class HomeComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.paginaNueva = 1;
+    this.total = null;
+
     if (categoria === 'todas') {
       this.categoriaTemp = categoria;
-      return this.cargarPosts(this.ctd, this.pagina, '');
+      this.cargarPosts(this.ctd, this.paginaNueva, '');
+      return;
     }
-
-    this.paginaNueva = 1;
-
-    this.cargarPosts(this.ctd, this.pagina, categoria);
+    this.cargarPosts(this.ctd, this.paginaNueva, categoria);
     // this.postsFilter = this.posts.filter(
     //   (post) => post.categoria === categoria
     // );
     this.categoriaTemp = categoria;
+    this.prueba = false;
   }
 
   scroll = (event: any) => {
@@ -109,12 +123,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     const height = event.srcElement.scrollHeight;
     const offset = event.srcElement.offsetHeight;
 
+    if (!this.prueba && this.posts.length !== this.total) {
+      this.prueba = true;
+      return;
+    }
     if (top > height - offset - 1) {
       if (this.categoriaTemp !== 'todas') {
-        this.cargarPostsNuevos(this.ctd, this.categoriaTemp);
+        this.paginaNueva++;
+        this.cargarPostsNuevos(this.ctd, this.paginaNueva, this.categoriaTemp);
+        this.prueba = false;
         return;
       }
-      this.cargarPostsNuevos(this.ctd, '');
+      this.paginaNueva++;
+      this.cargarPostsNuevos(this.ctd, this.paginaNueva, '');
+      this.prueba = false;
     }
   };
 

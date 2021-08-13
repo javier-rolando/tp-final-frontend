@@ -1,6 +1,6 @@
 export interface UpdateUserForm {
   nombre: string;
   email: string;
-  role?: string;
+  role: string;
   avatar?: string;
 }
