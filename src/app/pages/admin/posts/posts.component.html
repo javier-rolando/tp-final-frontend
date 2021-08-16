@@ -25,7 +25,8 @@
         <td mat-cell *matCellDef="let row">
           <img
             [src]="row.imagen | imagen: row.usuario._id:'post'"
-            class="post"
+            [routerLink]="['/post', row._id]"
+            class="post cursor"
           />
         </td>
       </ng-container>

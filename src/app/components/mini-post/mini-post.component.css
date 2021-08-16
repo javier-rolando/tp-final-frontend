@@ -2,3 +2,9 @@
   max-width: 200px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 599px) {
+  .card {
+    margin: 5px;
+  }
+}

@@ -77,8 +77,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   cargarPostsNuevos(ctd: number, pagina: number, categoria: string) {
-    console.log('posts length', this.posts.length);
-    console.log('posts total', this.total);
     if (this.posts.length === this.total) {
       return;
     }
@@ -92,8 +90,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.posts = this.posts.concat(resp.posts);
         this.total = resp.total;
         this.cargandoNuevos = false;
-        console.log('posts length nuevo', this.posts.length);
-        console.log('total nuevo', this.total);
       });
   }
 

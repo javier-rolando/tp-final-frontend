@@ -40,3 +40,23 @@
   text-align: center;
   font-size: 2.5rem;
 }
+
+@media screen and (max-width: 599px) {
+  .container {
+    width: 90vw;
+  }
+
+  .titulo {
+    font-size: 2.5rem;
+  }
+
+  .flex {
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .categorias {
+    width: 90%;
+  }
+}

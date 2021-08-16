@@ -14,6 +14,7 @@ import { UsuariosService } from 'src/app/services/usuarios.service';
   styleUrls: ['./perfil.component.css'],
 })
 export class PerfilComponent implements OnInit {
+  public usuarioPerfil: Usuario;
   public usuario: Usuario;
   public posts: Post[] = [];
   public cargando: boolean = true;
@@ -26,7 +27,9 @@ export class PerfilComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.usuario = usuariosService.usuario;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(({ id }) => {
@@ -43,9 +46,9 @@ export class PerfilComponent implements OnInit {
     this.cargando = true;
     this.usuariosService.getUsuario(id).subscribe(
       (usuario) => {
-        this.usuario = usuario;
+        this.usuarioPerfil = usuario;
         this.titleService.setTitle(
-          `Postinger! | Perfil de ${this.usuario.nombre}`
+          `Postinger! | Perfil de ${this.usuarioPerfil.nombre}`
         );
         this.cargando = false;
       },

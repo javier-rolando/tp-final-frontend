@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.activatedRoute.queryParams.subscribe((params) => {
       if (params['confirmado']) {
         this.openSnackBar(
-          'Email confirmado! Por favor iniciá sesión con los datos registrados',
+          'Email confirmado! Ya podés iniciar sesión con tus datos',
           'Aceptar'
         );
       }

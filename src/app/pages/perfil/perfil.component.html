@@ -4,19 +4,29 @@
   </div>
 </main>
 <main class="container" *ngIf="!cargando && !cargandoPosts">
-  <div class="info" *ngIf="usuario">
+  <div class="info" *ngIf="usuarioPerfil">
     <mat-card style="display: none"></mat-card>
     <div
       [style.background-image]="
-        'url(' + (usuario.avatar | imagen: usuario._id:'avatar') + ')'
+        'url(' +
+        (usuarioPerfil.avatar | imagen: usuarioPerfil._id:'avatar') +
+        ')'
       "
       mat-card-avatar
       class="example-header-image"
     ></div>
-    <h1 class="nombre">{{ usuario.nombre }}</h1>
+    <h1 class="nombre">{{ usuarioPerfil.nombre }}</h1>
   </div>
   <mat-divider></mat-divider>
-  <div *ngIf="posts" class="posts">
+  <div *ngIf="posts && posts.length !== 0" class="posts">
     <app-mini-post *ngFor="let post of posts" [post]="post"></app-mini-post>
+  </div>
+  <div *ngIf="posts.length === 0">
+    <p class="para" *ngIf="usuarioPerfil._id === usuario._id">
+      Todavía no creaste ningún post!
+    </p>
+    <p class="para" *ngIf="usuarioPerfil._id !== usuario._id">
+      Este usuario aún no ha creado ningún post.
+    </p>
   </div>
 </main>
