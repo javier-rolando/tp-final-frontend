@@ -171,7 +171,9 @@ export class ChangePassComponent implements OnInit {
   }
 
   oldPassDistinta(control: FormControl) {
-    const body: ComparePassForm = control.value;
+    const body: ComparePassForm = {
+      password: control.value,
+    };
     clearTimeout(this.cambiarPassDebounce);
     const q = new Promise((resolve, reject) => {
       this.cambiarPassDebounce = setTimeout(() => {
