@@ -1,27 +1,19 @@
-# TpFinalFrontend
+# FRONTEND - Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.1.2.
+## Descripción
 
-## Development server
+El proyecto es una aplicación llamada Postinger que funciona como una red social, la cual permite registrarte y crear posts con imágenes y descripciones, teniendo varias categorías para elegir. El usuario puede cambiar su foto de perfil y editar o eliminar sus propios posts.
+También existe un role de Admin el cual puede además borrar usuarios a través de una página hecha para el mantenimiento.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Pre-requisitos 📋
 
-## Code scaffolding
+_Ejecutar el comando **npm install** para instalar todas las dependencias._
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Hecho con 🛠️
 
-## Build
+- [Angular](https://angular.io/)
+- [Angular Material](https://material.angular.io/)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Autor ✒️
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- **Javier Rolando**
