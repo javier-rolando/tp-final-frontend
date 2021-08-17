@@ -7,7 +7,7 @@ También existe un role de Admin el cual puede además borrar usuarios a través
 
 ### Pre-requisitos 📋
 
-_Ejecutar el comando **npm install** para instalar todas las dependencias._
+_Ejecutar el comando **npm install** para instalar todas las dependencias. Una vez finalizada la instalación, ejecutar el comando **ng serve**_
 
 ## Hecho con 🛠️
 
